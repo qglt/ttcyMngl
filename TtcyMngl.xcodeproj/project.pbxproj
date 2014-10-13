@@ -2314,7 +2314,6 @@
 					"$(PROJECT_DIR)/TtcyMngl/common/ShareSDK/Extend/SinaWeiboSDK",
 					"$(PROJECT_DIR)/TtcyMngl/common/ShareSDK/Extend/TencentWeiboSDK",
 					"$(PROJECT_DIR)/TtcyMngl/common/ShareSDK/Extend/WeChatSDK",
-					"$(PROJECT_DIR)/TtcyMngl/common/MTA",
 				);
 				OTHER_LDFLAGS = (
 					"-lsqlite3",
@@ -2369,7 +2368,6 @@
 					"$(PROJECT_DIR)/TtcyMngl/common/ShareSDK/Extend/SinaWeiboSDK",
 					"$(PROJECT_DIR)/TtcyMngl/common/ShareSDK/Extend/TencentWeiboSDK",
 					"$(PROJECT_DIR)/TtcyMngl/common/ShareSDK/Extend/WeChatSDK",
-					"$(PROJECT_DIR)/TtcyMngl/common/MTA",
 				);
 				OTHER_LDFLAGS = (
 					"-lsqlite3",
