@@ -146,8 +146,6 @@
 		047CFE4F196F8A2200411922 /* DwonloadModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 047CFE46196F8A2200411922 /* DwonloadModel.xcdatamodeld */; };
 		0484D80119662A0F0012BE9F /* MVASIHtttpRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0484D7FF19662A0F0012BE9F /* MVASIHtttpRequest.m */; };
 		0484D80419662A2B0012BE9F /* NSString+URLEncoding.m in Sources */ = {isa = PBXBuildFile; fileRef = 0484D80319662A2B0012BE9F /* NSString+URLEncoding.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		048B533719E632B700D6E833 /* libmtasdk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 048B533319E632B700D6E833 /* libmtasdk.a */; };
-		048B533819E632B700D6E833 /* ReleaseNotes.txt in Resources */ = {isa = PBXBuildFile; fileRef = 048B533619E632B700D6E833 /* ReleaseNotes.txt */; };
 		0494A61F195D44CF001D899B /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0494A61E195D44CF001D899B /* AboutViewController.m */; };
 		04A8C33519C81B6400BAD3E2 /* playBar_slider_thum.png in Resources */ = {isa = PBXBuildFile; fileRef = 04A8C33419C81B6400BAD3E2 /* playBar_slider_thum.png */; };
 		04A8C34019C95BD000BAD3E2 /* MusicOperationPanel.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A8C33F19C95BD000BAD3E2 /* MusicOperationPanel.m */; };
@@ -541,10 +539,6 @@
 		0484D7FF19662A0F0012BE9F /* MVASIHtttpRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MVASIHtttpRequest.m; sourceTree = "<group>"; };
 		0484D80219662A2B0012BE9F /* NSString+URLEncoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+URLEncoding.h"; sourceTree = "<group>"; };
 		0484D80319662A2B0012BE9F /* NSString+URLEncoding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+URLEncoding.m"; sourceTree = "<group>"; };
-		048B533319E632B700D6E833 /* libmtasdk.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libmtasdk.a; sourceTree = "<group>"; };
-		048B533419E632B700D6E833 /* MTA.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTA.h; sourceTree = "<group>"; };
-		048B533519E632B700D6E833 /* MTAConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTAConfig.h; sourceTree = "<group>"; };
-		048B533619E632B700D6E833 /* ReleaseNotes.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ReleaseNotes.txt; sourceTree = "<group>"; };
 		0494A61D195D44CF001D899B /* AboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutViewController.h; sourceTree = "<group>"; };
 		0494A61E195D44CF001D899B /* AboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutViewController.m; sourceTree = "<group>"; };
 		04A8C33419C81B6400BAD3E2 /* playBar_slider_thum.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = playBar_slider_thum.png; sourceTree = "<group>"; };
@@ -803,7 +797,6 @@
 				047BA96F196BD51F003ECA14 /* libSinaWeiboSDK.a in Frameworks */,
 				047BA95B196BCEB1003ECA14 /* ShareSDK.framework in Frameworks */,
 				047BA954196BCEB1003ECA14 /* ShareSDKCoreService.framework in Frameworks */,
-				048B533719E632B700D6E833 /* libmtasdk.a in Frameworks */,
 				84BC559E19453D8D0082DE99 /* CoreGraphics.framework in Frameworks */,
 				04B8F1B1196D135E00F0F7D2 /* ShareSDKShareActionSheet.framework in Frameworks */,
 				84BC55A019453D8D0082DE99 /* UIKit.framework in Frameworks */,
@@ -1072,17 +1065,6 @@
 				047CFE39196F8A2200411922 /* DesEncrypt.m */,
 			);
 			path = DES;
-			sourceTree = "<group>";
-		};
-		048B533219E632B700D6E833 /* MTA */ = {
-			isa = PBXGroup;
-			children = (
-				048B533319E632B700D6E833 /* libmtasdk.a */,
-				048B533419E632B700D6E833 /* MTA.h */,
-				048B533519E632B700D6E833 /* MTAConfig.h */,
-				048B533619E632B700D6E833 /* ReleaseNotes.txt */,
-			);
-			path = MTA;
 			sourceTree = "<group>";
 		};
 		04CB735A1952D18D00DCE0B0 /* BaseController */ = {
@@ -1611,7 +1593,6 @@
 		84BC55CA194558FE0082DE99 /* common */ = {
 			isa = PBXGroup;
 			children = (
-				048B533219E632B700D6E833 /* MTA */,
 				043CE08A199B47C100517BB4 /* WXPay */,
 				047CFE34196F8A2200411922 /* DownloadHelper */,
 				047BA929196BCEB1003ECA14 /* ShareSDK */,
@@ -1851,7 +1832,6 @@
 			files = (
 				04EE16AB1981072D00B0CA87 /* progress_bar_play.png in Resources */,
 				047BA952196BCEB1003ECA14 /* ShareSDKLocalizable.strings in Resources */,
-				048B533819E632B700D6E833 /* ReleaseNotes.txt in Resources */,
 				041C8FC019AB1D5B00CE29FE /* IMG_4210.PNG in Resources */,
 				04EE16651981072D00B0CA87 /* online_album@2x.png in Resources */,
 				0419AF0519D81B3400F57B58 /* share_setting.png in Resources */,
