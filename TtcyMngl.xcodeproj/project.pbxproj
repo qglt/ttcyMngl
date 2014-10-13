@@ -111,8 +111,6 @@
 		044375D81953E7CC00044FEC /* PlayQueueListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 044375D71953E7CC00044FEC /* PlayQueueListViewController.m */; };
 		0443A24F1950341900A704FC /* FMDBManager+DownloadSong.m in Sources */ = {isa = PBXBuildFile; fileRef = 0443A24E1950341900A704FC /* FMDBManager+DownloadSong.m */; };
 		0443A252195040F600A704FC /* FMDBManager+PlayRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 0443A251195040F600A704FC /* FMDBManager+PlayRecord.m */; };
-		0445619E19EB5D1A002DACF3 /* libmtasdk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0445619A19EB5D1A002DACF3 /* libmtasdk.a */; };
-		0445619F19EB5D1A002DACF3 /* ReleaseNotes.txt in Resources */ = {isa = PBXBuildFile; fileRef = 0445619D19EB5D1A002DACF3 /* ReleaseNotes.txt */; };
 		0451ED69195CF53100A01630 /* CollectListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0451ED68195CF53100A01630 /* CollectListViewController.m */; };
 		045FBEA8196FCB3600A6CF20 /* DownLoadInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 045FBEA7196FCB3600A6CF20 /* DownLoadInfoCell.m */; };
 		047BA94B196BCEB1003ECA14 /* CopyConnection.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 047BA92B196BCEB1003ECA14 /* CopyConnection.framework */; };
@@ -488,10 +486,6 @@
 		0443A24E1950341900A704FC /* FMDBManager+DownloadSong.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "FMDBManager+DownloadSong.m"; sourceTree = "<group>"; };
 		0443A250195040F600A704FC /* FMDBManager+PlayRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FMDBManager+PlayRecord.h"; sourceTree = "<group>"; };
 		0443A251195040F600A704FC /* FMDBManager+PlayRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "FMDBManager+PlayRecord.m"; sourceTree = "<group>"; };
-		0445619A19EB5D1A002DACF3 /* libmtasdk.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libmtasdk.a; sourceTree = "<group>"; };
-		0445619B19EB5D1A002DACF3 /* MTA.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTA.h; sourceTree = "<group>"; };
-		0445619C19EB5D1A002DACF3 /* MTAConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTAConfig.h; sourceTree = "<group>"; };
-		0445619D19EB5D1A002DACF3 /* ReleaseNotes.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ReleaseNotes.txt; sourceTree = "<group>"; };
 		0451ED67195CF53100A01630 /* CollectListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollectListViewController.h; sourceTree = "<group>"; };
 		0451ED68195CF53100A01630 /* CollectListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CollectListViewController.m; sourceTree = "<group>"; };
 		045FBEA6196FCB3600A6CF20 /* DownLoadInfoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DownLoadInfoCell.h; sourceTree = "<group>"; };
@@ -803,7 +797,6 @@
 				047BA96F196BD51F003ECA14 /* libSinaWeiboSDK.a in Frameworks */,
 				047BA95B196BCEB1003ECA14 /* ShareSDK.framework in Frameworks */,
 				047BA954196BCEB1003ECA14 /* ShareSDKCoreService.framework in Frameworks */,
-				0445619E19EB5D1A002DACF3 /* libmtasdk.a in Frameworks */,
 				84BC559E19453D8D0082DE99 /* CoreGraphics.framework in Frameworks */,
 				04B8F1B1196D135E00F0F7D2 /* ShareSDKShareActionSheet.framework in Frameworks */,
 				84BC55A019453D8D0082DE99 /* UIKit.framework in Frameworks */,
@@ -928,17 +921,6 @@
 				043CE08F199B47C100517BB4 /* WXPayClient.m */,
 			);
 			path = WXPay;
-			sourceTree = "<group>";
-		};
-		0445619919EB5D1A002DACF3 /* MTA */ = {
-			isa = PBXGroup;
-			children = (
-				0445619A19EB5D1A002DACF3 /* libmtasdk.a */,
-				0445619B19EB5D1A002DACF3 /* MTA.h */,
-				0445619C19EB5D1A002DACF3 /* MTAConfig.h */,
-				0445619D19EB5D1A002DACF3 /* ReleaseNotes.txt */,
-			);
-			path = MTA;
 			sourceTree = "<group>";
 		};
 		044B2F5A196B8C980086C673 /* UserShareSDK */ = {
@@ -1611,7 +1593,6 @@
 		84BC55CA194558FE0082DE99 /* common */ = {
 			isa = PBXGroup;
 			children = (
-				0445619919EB5D1A002DACF3 /* MTA */,
 				043CE08A199B47C100517BB4 /* WXPay */,
 				047CFE34196F8A2200411922 /* DownloadHelper */,
 				047BA929196BCEB1003ECA14 /* ShareSDK */,
@@ -1851,7 +1832,6 @@
 			files = (
 				04EE16AB1981072D00B0CA87 /* progress_bar_play.png in Resources */,
 				047BA952196BCEB1003ECA14 /* ShareSDKLocalizable.strings in Resources */,
-				0445619F19EB5D1A002DACF3 /* ReleaseNotes.txt in Resources */,
 				041C8FC019AB1D5B00CE29FE /* IMG_4210.PNG in Resources */,
 				04EE16651981072D00B0CA87 /* online_album@2x.png in Resources */,
 				0419AF0519D81B3400F57B58 /* share_setting.png in Resources */,
