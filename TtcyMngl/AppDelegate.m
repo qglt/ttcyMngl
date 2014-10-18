@@ -72,7 +72,7 @@ NSString * const HUDDismissNotification = @"HUDDismissNotification";
     
     [self addNotifiCation];
     
-    [UserShareSDK initWithShareConfig];//初始化分享配置
+    [[UserShareSDK shareInstance] setShareConfig];//初始化分享配置
     
     [FMDBManager defaultManager];//创建数据库，并初始化
     

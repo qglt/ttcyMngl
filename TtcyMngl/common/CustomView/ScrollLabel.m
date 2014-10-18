@@ -59,6 +59,22 @@
 {
     _textLabel.font = font;
 }
+-(void)setTextAlignment:(Alignment)textAlignment
+{
+    switch (textAlignment) {
+        case Center:
+            _textLabel.textAlignment = NSTextAlignmentCenter;
+            break;
+        case Left:
+            _textLabel.textAlignment = NSTextAlignmentLeft;
+            break;
+        case Right:
+            _textLabel.textAlignment = NSTextAlignmentRight;
+            break;
+        default:
+            break;
+    }
+}
 - (void)updateFrames
 {
     CGSize size = [_textLabel.text sizeWithFont:_textLabel.font];

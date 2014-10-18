@@ -146,9 +146,8 @@ NSMutableArray * collectArray;
 }
 + (void)shareSong:(SongObject *)song
 {
-    UserShareSDK *userSDK = [[UserShareSDK alloc] init];
     NSDictionary * songDict = [song dictionary];
-    [userSDK shareSongWithDictionary:songDict];
+    [[UserShareSDK shareInstance]shareSongWithDictionary:songDict];
 }
 + (void)changePlayMode
 {

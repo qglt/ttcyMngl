@@ -213,8 +213,7 @@ SINGLETON_IMPLEMENT(AppDataManager)
 #pragma mark - shareApp ---------------------
 - (void)shareApp
 {
-    UserShareSDK * share = [[UserShareSDK alloc]init];
-    [share shareApp];
+    [[UserShareSDK shareInstance] shareApp];
 }
 
 @end

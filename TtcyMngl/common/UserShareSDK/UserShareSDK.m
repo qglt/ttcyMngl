@@ -8,21 +8,134 @@
 
 #import "UserShareSDK.h"
 #import "Constant.h"
+#import "HUD.h"
+
+#define TAG_DOUBAN     100
+#define TAG_WEICHAT    101
+#define TAG_WEIBO      102
+#define TAG_QZONE      103
+#define TAG_TXWEIBO    104
 
 @interface UserShareSDK ()
 {
     NSArray *shareMenuList;
-    id<ISSShareOptions> shareOptions_default;
-    id<ISSShareOptions> shareOptions_simple;
-    id<ISSShareOptions> shareOptions_appRecommend;
+    id<ISSContent> _publishContent;
 }
+@property (nonatomic ,strong)UIView * shareView;
 
 @end
 
-
 @implementation UserShareSDK
-
-+ (void)initWithShareConfig
+SINGLETON_IMPLEMENT(UserShareSDK)
+- (id)init
+{
+    self = [super init];
+    if (self) {
+        [self createShareView];
+    }
+    return self;
+}
+- (void)createShareView
+{
+    self.shareView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kMainScreenWidth, kMainScreenHeight+20+210)];
+    _shareView.backgroundColor = [UIColor colorWithWhite:1 alpha:.1f];
+    _shareView.alpha = 0;
+    
+    [_shareView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(shareViewTaped:)]];
+    
+    UIView * view = [[UIView alloc]initWithFrame:CGRectMake(0, kMainScreenHeight+20, kMainScreenWidth, 210)];
+    view.backgroundColor = [UIColor whiteColor];
+    view.layer.shadowOffset = CGSizeMake(0, -1);
+    view.layer.shadowColor = [UIColor colorWithWhite:.5 alpha:.9].CGColor;
+    view.layer.shadowOpacity = 1;
+    [self createTitleLabelWithView:view];
+    [self createSPLineWithView:view];
+    [self createItemsWithView:view];
+    [_shareView addSubview:view];
+    [[UIApplication sharedApplication].keyWindow.rootViewController.view addSubview:_shareView];
+}
+- (void)createTitleLabelWithView:(UIView *)view
+{
+    UILabel * label = [[UILabel alloc]init];
+    label.font = [UIFont fontWithName:@"Menksoft Qagan" size:20.0f];
+    label.textAlignment = NSTextAlignmentCenter;
+    label.text = @"";
+    label.textColor = [Utils colorWithHexString:@"#1B98DA"];
+    label.transform = CGAffineTransformMakeRotation(M_PI_2);
+    label.frame = CGRectMake(0, 0,35,view.bounds.size.height);
+    [view addSubview:label];
+}
+- (void)createSPLineWithView:(UIView *)view
+{
+    UIView * line = [[UIView alloc]initWithFrame:CGRectMake(36, 0, .5f, view.bounds.size.height)];
+    line.backgroundColor = NVC_SELECTED_BACKGROUND;
+    [view addSubview:line];
+}
+- (void)createItemsWithView:(UIView *)view
+{
+    UIButton * douban = [self createButtonWithTitle:@" " tag:TAG_DOUBAN image:[UIImage imageNamed:@"share_douban"]];
+    douban.center = CGPointMake(80, 50);
+    [view addSubview:douban];
+    
+    UIButton * wechat = [self createButtonWithTitle:@"" tag:TAG_WEICHAT image:[UIImage imageNamed:@"share_wechat"]];
+    wechat.center = CGPointMake((kMainScreenWidth+35)/2.f, 50);
+    [view addSubview:wechat];
+    
+    UIButton * weibo = [self createButtonWithTitle:@" " tag:TAG_WEIBO image:[UIImage imageNamed:@"share_weibo"]];
+    weibo.center = CGPointMake(kMainScreenWidth-40-10, 50);
+    [view addSubview:weibo];
+    
+    UIButton * kongjian = [self createButtonWithTitle:@"Qzone" tag:TAG_QZONE image:[UIImage imageNamed:@"share_Qzone"]];
+    kongjian.center = CGPointMake(80, 150);
+    [view addSubview:kongjian];
+    
+    UIButton * tencentWeibo = [self createButtonWithTitle:@" " tag:TAG_TXWEIBO image:[UIImage imageNamed:@"share_txweibo"]];
+    tencentWeibo.center = CGPointMake((kMainScreenWidth+35)/2.f, 150);
+    [view addSubview:tencentWeibo];
+}
+- (UIButton *)createButtonWithTitle:(NSString *)title tag:(NSInteger)tag image:(UIImage *)image
+{
+    UIButton * button = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 80, 80)];
+    button.backgroundColor = [UIColor clearColor];
+    [button setImage:image forState:UIControlStateNormal];
+    [button setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 15)];
+    button.tag = tag;
+    [button addTarget:self action:@selector(share:) forControlEvents:UIControlEventTouchUpInside];
+    
+    UILabel * label = [[UILabel alloc]init];
+    label.backgroundColor = [UIColor clearColor];
+    label.font = [UIFont fontWithName:@"Menksoft Qagan" size:12.0f];
+    label.textAlignment = NSTextAlignmentCenter;
+    label.text = title;
+    label.transform = CGAffineTransformMakeRotation(M_PI_2);
+    label.frame = CGRectMake(65, 0, 15, 80);
+    [button addSubview:label];
+    return button;
+}
+- (void)shareViewTaped:(UITapGestureRecognizer *)gestrue
+{
+    if (gestrue.state == UIGestureRecognizerStateEnded) {
+        [self showShareView:NO];
+    }
+}
+- (void)showShareView:(BOOL)show
+{
+    if (show) {
+        [_shareView removeFromSuperview];
+        [[UIApplication sharedApplication].keyWindow.rootViewController.view addSubview:_shareView];
+        
+        [UIView animateWithDuration:.3f animations:^{
+            _shareView.transform = CGAffineTransformMakeTranslation(0, -210.f);
+            _shareView.alpha = 1;
+        }];
+    }else{
+        [UIView animateWithDuration:.3f animations:^{
+            _shareView.transform = CGAffineTransformMakeTranslation(0, +210.f);
+            _shareView.alpha = 0;
+        }];
+    }
+}
+-(void)setShareConfig
 {
     [ShareSDK registerApp:@"227e7d3c6c08"];     //参数为ShareSDK官网中添加应用后得到的AppKey  @"227e7d3c6c08"
 
@@ -33,109 +146,40 @@
 
     [ShareSDK importWeChatClass:[WXApi class]];
 }
-
-- (void)initShareMenuList
-{
-    [ShareSDK setUIStyle:0];
-
-    //构造shareMenuList，项目的顺序也会反映在菜单顺序之中
-    shareMenuList = [[NSArray alloc] init];
-    shareMenuList = [ShareSDK getShareListWithType:
-                     ShareTypeWeixiTimeline,
-                          ShareTypeSinaWeibo,
-                          ShareTypeWeixiSession,
-                          ShareTypeTencentWeibo,
-                          ShareTypeDouBan,
-                          ShareTypeQQSpace,
-                          nil];
-
-    //分享内容视图样式
-    //1.|**< 默认 >**| --> 分享内容可编辑
-    shareOptions_default = [ShareSDK defaultShareOptionsWithTitle:@"默认🈷️视图"
-                                                               oneKeyShareList:shareMenuList
-                                                            cameraButtonHidden:NO
-                                                           mentionButtonHidden:NO
-                                                             topicButtonHidden:YES
-                                                                qqButtonHidden:NO
-                                                         wxSessionButtonHidden:NO
-                                                        wxTimelineButtonHidden:YES
-                                                          showKeyboardOnAppear:NO
-                                                             shareViewDelegate:nil
-                                                           friendsViewDelegate:nil
-                                                         picViewerViewDelegate:nil];
-    
-    //2.|**< 简约，只带有文字和图片显示UI >**| --> 分享内容可编辑
-    shareOptions_simple = [ShareSDK simpleShareOptionsWithTitle:@"简约🈷️视图"
-                                                            shareViewDelegate:nil];
-    
-    //3.|**< 应用推荐，专为应用推荐而设的显示样式 >**| --> 分享内容不可编辑
-    shareOptions_appRecommend = [ShareSDK appRecommendShareOptionsWithTile:@"推荐🈷️视图"
-                                                                 shareViewDelegate:nil];
-
-}
-
 -(void)shareSongWithDictionary:(NSDictionary *)songDict
 {
-    //在使用服务器托管配置信息初始化时，由于从服务器获取信息有一定的时间延迟，因此为保证可以在正确初始化平台后调用相关功能，SDK中提供了一个waitAppSettingComplete的方法，用于等待设置App信息完成后执行相关操作。其用法如下：
     __unsafe_unretained NSDictionary * dict = songDict;
-    
     [ShareSDK waitAppSettingComplete:^{
         [self callTheShareSDKInterfaceWithSongWithDictionary:dict];
     }];
 }
-
-
 - (void)shareApp
 {
     [ShareSDK waitAppSettingComplete:^{
         [self callTheShareSDKInterfaceWithApp];
-        
     }];
 }
-
 //分享歌曲
 - (void)callTheShareSDKInterfaceWithSongWithDictionary:(NSDictionary *)dict
 {
-    [self initShareMenuList];
-    
-    id<ISSContent> publishContent = nil;
-    
     NSString *imagePath = dict[@"avatarImageUrl"];
     NSString *contentString = @"http://www.ttcy.com 天堂草原音乐网";
     NSString *titleString   = @"TengrTal天堂草原音乐蒙语App（www.ttcy.com）";
     NSString *urlString     = [@"http://mobi.ttcy.com/SharePlay.aspx?id=" stringByAppendingString:[dict objectForKey:@"songId"]]  ;
     NSString *description   = @"把这首好听的歌分享给大家";
-
-    /**
-     *	@brief	创建分享内容对象，根据以下每个字段适用平台说明来填充参数值
-     *
-     *	@param 	content 	分享内容（新浪、腾讯、网易、搜狐、豆瓣、人人、开心、邮件、短信、微信、QQ、拷贝）
-     *	@param 	defaultContent 	默认分享内容（新浪、腾讯、网易、搜狐、豆瓣、人人、开心、邮件、短信、微信、QQ、拷贝）
-     *	@param 	image 	分享图片（新浪、腾讯、网易、搜狐、豆瓣、人人、开心、邮件、打印、微信、QQ、拷贝）
-     *	@param 	title 	标题（QQ空间、人人、微信、QQ）
-     *	@param 	url 	链接（QQ空间、人人、微信、QQ）
-     *	@param 	description 	主体内容（QQ空间、人人）
-     *	@param 	mediaType 	分享类型（QQ、微信）
-     *
-     *	@return	分享内容对象
-     **/
     
-    publishContent = [ShareSDK content:contentString
+    _publishContent = [ShareSDK content:contentString
                         defaultContent:@"默认分享内容，没内容时显示"
                                  image:[ShareSDK imageWithUrl:imagePath]
                                  title:titleString
                                    url:urlString
                            description:description
                              mediaType:SSPublishContentMediaTypeMusic];//分享内容的消息类型，仅对微信、QQApi有效
-    
-    [self showShareActionSheetWithContent:publishContent ShareOptions:shareOptions_default];
+    [self showShareView:YES];
 }
-
 //分享 App
 - (void)callTheShareSDKInterfaceWithApp
 {
-    [self initShareMenuList];
-    
     NSString *imagePath = [[NSBundle mainBundle] pathForResource:@"online_music_btn02@2x"  ofType:@"png"];
     //构造分享内容
     NSString *contentString = @"快来用蒙文歌曲播放器听蒙语歌曲吧,点击http://www.ttcy.com下载";
@@ -143,48 +187,69 @@
     NSString *urlString     = @"http://mobi.ttcy.com/Phone_Down.htm";
     NSString *description   = @"快来用蒙文歌曲播放器听蒙语歌曲吧";
     
-    id<ISSContent> publishContent = [ShareSDK content:contentString
-                                       defaultContent:@"默认分享内容，没内容时显示"
-                                                image:[ShareSDK imageWithPath:imagePath]
-                                                title:titleString
-                                                  url: urlString
-                                          description:description
-                                            mediaType:SSPublishContentMediaTypeApp];
-    
-    [self showShareActionSheetWithContent:publishContent ShareOptions:shareOptions_default];
+    _publishContent = [ShareSDK content:contentString
+                         defaultContent:@"默认分享内容，没内容时显示"
+                                  image:[ShareSDK imageWithPath:imagePath]
+                                  title:titleString
+                                    url: urlString
+                            description:description
+                              mediaType:SSPublishContentMediaTypeApp];
+    [self showShareView:YES];
 }
-
-//分享内容视图样式
-- (void)showShareActionSheetWithContent:(id<ISSContent>)content ShareOptions:(id<ISSShareOptions>)shareOptions
+- (void)share:(UIButton *)sender
 {
-    id<ISSAuthOptions> authOptions = [ShareSDK authOptionsWithAutoAuth:YES
-                                                         allowCallback:YES
-                                                                scopes:nil
-                                                         powerByHidden:YES
-                                                        followAccounts:nil
-                                                         authViewStyle:SSAuthViewStyleFullScreenPopup
-                                                          viewDelegate:nil
-                                               authManagerViewDelegate:nil];
-    
-    [ShareSDK showShareActionSheet:nil
-                         shareList:shareMenuList
-                           content:content
-                     statusBarTips:YES
-                       authOptions:authOptions
-                      shareOptions:shareOptions
-                            result:^(ShareType type, SSResponseState state, id<ISSPlatformShareInfo> statusInfo, id<ICMErrorInfo> error, BOOL end) {
-                                if (state == SSResponseStateSuccess)
-                                {
-                                    NSLog(@"分享成功");
-                                }
-                                else if (state == SSResponseStateFail)
-                                {
-                                    NSLog(@"分享失败,错误码:%d,错误描述:%@", [error errorCode], [error errorDescription]);
-                                }
-                            }];
+    [self showShareView:NO];
+    [HUD messageForBuffering];
+    switch (sender.tag)
+    {
+        case TAG_DOUBAN:
+        {
+            [self share:ShareTypeDouBan withContent:_publishContent];
+        }
+            break;
+        case TAG_WEICHAT:
+        {
+            [self share:ShareTypeWeixiSession withContent:_publishContent];
+        }
+            break;
+            
+        case TAG_WEIBO:
+        {
+            [self share:ShareTypeSinaWeibo withContent:_publishContent];
+        }
+            break;
+        case TAG_TXWEIBO:
+        {
+            [self share:ShareTypeTencentWeibo withContent:_publishContent];
+        }
+            break;
+        case TAG_QZONE:
+        {
+            [self share:ShareTypeQQSpace withContent:_publishContent];
+        }
+            break;
+        default:
+            break;
+    }
 }
-
-
+- (void)share:(ShareType)shareTpye withContent:(id<ISSContent>)content
+{
+    [ShareSDK shareContent:content
+                      type:shareTpye
+               authOptions:nil
+             statusBarTips:NO
+                    result:^(ShareType type,SSResponseState state,id<ISSPlatformShareInfo> statusInfo,id<ICMErrorInfo> error, BOOL end)
+     {
+         if (state == SSPublishContentStateSuccess)
+         {
+             [HUD message:@" "];
+         }
+         else if (state == SSPublishContentStateFail)
+         {
+             [HUD message:@"  "];
+         }
+     }];
+}
 
 @end
 

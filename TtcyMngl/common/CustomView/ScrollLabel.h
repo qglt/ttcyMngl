@@ -8,10 +8,18 @@
 
 #import <UIKit/UIKit.h>
 
+typedef enum {
+    Center,
+    Left,
+    Right
+}Alignment;
+
 @interface ScrollLabel : UIView
 
 @property (nonatomic,strong,setter=setFont:)UIFont * font;
 
 @property (nonatomic,strong,setter=setText:)NSString * text;
+
+@property (nonatomic,assign,setter=setTextAlignment:)Alignment textAlignment;
 
 @end

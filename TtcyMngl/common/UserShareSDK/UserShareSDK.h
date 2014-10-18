@@ -16,12 +16,13 @@
 #import <AGCommon/UIDevice+Common.h>
 
 @interface UserShareSDK : NSObject
+SINGLETON_DEFINE(UserShareSDK);
 
-//本地配置信息初始化
-+ (void)initWithShareConfig;
-//分享音乐
+
+- (void)setShareConfig;
+
 - (void)shareSongWithDictionary:(NSDictionary *)songDict;
-//分享应用
+
 - (void)shareApp;
 
 @end

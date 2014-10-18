@@ -161,7 +161,7 @@
             if (_nonceType==1) {
                 for (NSDictionary *dict in array) {
                     SongObject *model=[[SongObject alloc] initWithDictionary:dict];
-                    NSLog(@"-----------------%@,\n----------%@",dict,model.songId);
+                    NSLog(@"-----------------%@,\n----------%@",dict,model);
                     [_models addObject:model];
                     [mutabs addObject:model];
                  }
