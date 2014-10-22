@@ -14,6 +14,7 @@
 #import "AccountManager.h"
 #import "SongOprationManager.h"
 #import <STKLocalFileDataSource.h>
+#import "HUD.h"
 
 #define headBtnTag   2000
 
@@ -444,7 +445,7 @@ PlayBar * instence = nil;
 -(void)setPlayerData:(int)index
 {
     SongObject * obj = (SongObject *)_queueSongArray[index];
-    NSLog(@"------%@",[obj.songUrl substringToIndex:1]);
+    NSLog(@"------%@",obj.songUrl);
     if (!([obj.songUrl isKindOfClass:[NSNull class]]||obj.songUrl == nil || [@"" isEqualToString:obj.songUrl])) {
         
         NSURL* url = [NSURL URLWithString:obj.songUrl];
@@ -475,7 +476,7 @@ PlayBar * instence = nil;
 
 -(void) audioPlayer:(STKAudioPlayer*)audioPlayer unexpectedError:(STKAudioPlayerErrorCode)errorCode
 {
-	
+    [HUD message:@" "];
 }
 
 -(void) audioPlayer:(STKAudioPlayer*)audioPlayer didStartPlayingQueueItemId:(NSObject*)queueItemId
