@@ -9,6 +9,8 @@
 #import "UserShareSDK.h"
 #import "Constant.h"
 #import "HUD.h"
+#import "WXApi.h"
+#import "WXApiObject.h"
 
 #define TAG_DOUBAN     100
 #define TAG_WEICHAT    101
@@ -16,10 +18,19 @@
 #define TAG_QZONE      103
 #define TAG_TXWEIBO    104
 
+#define BUFFER_SIZE 1024 * 100
+
+typedef enum {
+    contentSong,
+    contentApp
+}ContentType;
+
 @interface UserShareSDK ()
 {
-    NSArray *shareMenuList;
     id<ISSContent> _publishContent;
+    enum WXScene _scene;
+    NSMutableDictionary * _currentSongDict;
+    ContentType contentType;
 }
 @property (nonatomic ,strong)UIView * shareView;
 
@@ -85,7 +96,7 @@ SINGLETON_IMPLEMENT(UserShareSDK)
     weibo.center = CGPointMake(kMainScreenWidth-40-10, 50);
     [view addSubview:weibo];
     
-    UIButton * kongjian = [self createButtonWithTitle:@"Qzone" tag:TAG_QZONE image:[UIImage imageNamed:@"share_Qzone"]];
+    UIButton * kongjian = [self createButtonWithTitle:@" " tag:TAG_QZONE image:[UIImage imageNamed:@"share_wxTimeLine"]];
     kongjian.center = CGPointMake(80, 150);
     [view addSubview:kongjian];
     
@@ -143,14 +154,14 @@ SINGLETON_IMPLEMENT(UserShareSDK)
     
     [ShareSDK importQQClass:[QQApiInterface class]
             tencentOAuthCls:[TencentOAuth class]];
-
-    [ShareSDK importWeChatClass:[WXApi class]];
+    
+//    [ShareSDK importWeChatClass:[WXApi class]];
 }
 -(void)shareSongWithDictionary:(NSDictionary *)songDict
 {
-    __unsafe_unretained NSDictionary * dict = songDict;
+    _currentSongDict = [NSMutableDictionary dictionaryWithDictionary:songDict];
     [ShareSDK waitAppSettingComplete:^{
-        [self callTheShareSDKInterfaceWithSongWithDictionary:dict];
+        [self callTheShareSDKInterfaceWithSongWithDictionary:_currentSongDict];
     }];
 }
 - (void)shareApp
@@ -162,6 +173,7 @@ SINGLETON_IMPLEMENT(UserShareSDK)
 //分享歌曲
 - (void)callTheShareSDKInterfaceWithSongWithDictionary:(NSDictionary *)dict
 {
+    contentType = contentSong;
     NSString *imagePath = dict[@"avatarImageUrl"];
     NSString *contentString = @"http://www.ttcy.com 天堂草原音乐网";
     NSString *titleString   = @"TengrTal天堂草原音乐蒙语App（www.ttcy.com）";
@@ -180,6 +192,7 @@ SINGLETON_IMPLEMENT(UserShareSDK)
 //分享 App
 - (void)callTheShareSDKInterfaceWithApp
 {
+    contentType = contentApp;
     NSString *imagePath = [[NSBundle mainBundle] pathForResource:@"online_music_btn02@2x"  ofType:@"png"];
     //构造分享内容
     NSString *contentString = @"快来用蒙文歌曲播放器听蒙语歌曲吧,点击http://www.ttcy.com下载";
@@ -209,7 +222,8 @@ SINGLETON_IMPLEMENT(UserShareSDK)
             break;
         case TAG_WEICHAT:
         {
-            [self share:ShareTypeWeixiSession withContent:_publishContent];
+            _scene = WXSceneSession;
+            [self shareToWeixinWithType:contentType];
         }
             break;
             
@@ -225,12 +239,72 @@ SINGLETON_IMPLEMENT(UserShareSDK)
             break;
         case TAG_QZONE:
         {
-            [self share:ShareTypeQQSpace withContent:_publishContent];
+            _scene = WXSceneTimeline;
+            [self shareToWeixinWithType:contentType];
         }
             break;
         default:
             break;
     }
+}
+/**<微信>*/
+/** <0-app  ,   1-  song>*/
+- (void)shareToWeixinWithType:(ContentType)type
+{
+    if (type==contentApp) {
+        [self sendAppContent];
+    }else{
+        [self sendSongToWechat];
+    }
+}
+
+/**<微信>*/
+- (void) sendAppContent
+{
+    WXMediaMessage *message = [WXMediaMessage message];
+    message.title = @"TengrTal";
+    message.description = @"天堂草原蒙文音乐播放器";
+    [message setThumbImage:[UIImage imageNamed:@"online_music_btn02@2x.png"]];
+    
+    WXAppExtendObject *ext = [WXAppExtendObject object];
+    ext.extInfo = @"天堂草原蒙文音乐播放器";
+    ext.url = @"http://mobi.ttcy.com/Phone_Down.htm";
+    
+    Byte* pBuffer = (Byte *)malloc(BUFFER_SIZE);
+    memset(pBuffer, 0, BUFFER_SIZE);
+    NSData* data = [NSData dataWithBytes:pBuffer length:BUFFER_SIZE];
+    free(pBuffer);
+    
+    ext.fileData = data;
+    
+    message.mediaObject = ext;
+    
+    SendMessageToWXReq* req = [[SendMessageToWXReq alloc] init];
+    req.bText = NO;
+    req.message = message;
+    req.scene = _scene;
+    
+    [WXApi sendReq:req];
+}
+/**<微信>*/
+- (void)sendSongToWechat
+{
+    WXMediaMessage *message = [WXMediaMessage message];
+    message.title = @"TengrTal天堂草原音乐蒙语App（www.ttcy.com）";
+    message.description = @"把这首好听的歌分享给大家";;
+    [message setThumbData:[NSData dataWithContentsOfURL:[NSURL URLWithString:_currentSongDict[@"avatarImageUrl"]]]];
+    WXMusicObject *ext = [WXMusicObject object];
+    ext.musicUrl = [@"http://mobi.ttcy.com/SharePlay.aspx?id=" stringByAppendingString:[_currentSongDict objectForKey:@"songId"]];
+    ext.musicDataUrl = _currentSongDict[@"songUrl"];
+    
+    message.mediaObject = ext;
+    
+    SendMessageToWXReq* req = [[SendMessageToWXReq alloc] init];
+    req.bText = NO;
+    req.message = message;
+    req.scene = _scene;
+    
+    [WXApi sendReq:req];
 }
 - (void)share:(ShareType)shareTpye withContent:(id<ISSContent>)content
 {
@@ -250,7 +324,6 @@ SINGLETON_IMPLEMENT(UserShareSDK)
          }
      }];
 }
-
 @end
 
 

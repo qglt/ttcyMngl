@@ -24,18 +24,18 @@
 #import "NSArray+ShareSDK.h"
 #import "ShareSDKTypeDef.h"
 #import "ShareSDKEventHandlerDef.h"
+
 #import "ShareSDKDef.h"
 #import "ISSAuthOptions.h"
 #import "ISSViewDelegate.h"
 #import "ISSPage.h"
 #import "ISSContent.h"
+
 #import "ISSShareActionSheet.h"
 #import "ISSShareOptions.h"
 #import "ISSShareViewDelegate.h"
 #import "ISSShareActionSheetItem.h"
 #import "ISSUserField.h"
-#import "SSAwardViewController.h"
-#import "UIViewController+ShareSDK.h"
 
 ///#begin zh-cn
 /**
@@ -191,7 +191,6 @@
  */
 ///#end
 + (void)useAppTrusteeship:(BOOL)enabled;
-
 
 #pragma mark 初始化
 
@@ -673,22 +672,28 @@
 ///#begin zh-cn
 /**
  *	@brief	连接微信应用以使用相关功能，此应用需要引用WeChatConnection.framework和微信官方SDK
- *          http://open.weixin.qq.com上注册应用，并将相关信息填写以下字段
+ *          http://open.weixin.qq.com上注册应用，并将相关信息填写以下字段。如果需要使用微信授权获取用户信息等，则可使用下面中带appSecret的方法。
  *
  *	@param 	appId 	应用ID
+ *  @param 	appSecret 	应用密钥
  *	@param 	wechatCls 	微信Api类型，引入WXApi.h后，将[WXApi class]传入此参数
  */
 ///#end
 ///#begin en
 /**
- *	@brief	Initialize WeChat platform. This platform need import WeChatConnection.framework and libWeChatSDK.a
+ *	@brief	Initialize WeChat platform. If you want get the user's infomation then you may choose the method that with the appSecret.This platform need import WeChatConnection.framework and libWeChatSDK.a
  *          Go to http://open.weixin.qq.com register app，Then fill in the relevant information into the field below
  *
  *	@param 	appId 	App id.
+ *  @param 	appSecret 	App Secret
  *	@param 	wechatCls 	WXApi class，You should import WXApi.h，then passed [WXApi class] this parameter.
  */
 ///#end
 + (void)connectWeChatWithAppId:(NSString *)appId
+                     wechatCls:(Class)wechatCls;
+
++ (void)connectWeChatWithAppId:(NSString *)appId
+                     appSecret:(NSString *)appSecret
                      wechatCls:(Class)wechatCls;
 
 ///#begin zh-cn
@@ -1028,67 +1033,85 @@
 
 ///#begin zh-cn
 /**
- *	@brief	连接微信好友
+ *	@brief	连接微信好友。如果需要使用微信授权获取用户信息等，则可使用下面中带appSecret的方法。
  *
  *  @since  ver2.6.0
  *
  *	@param 	appId 	应用ID，必须要和朋友圈传入ID一致
+ *  @param 	appSecret 	应用密钥
  *	@param 	wechatCls 	微信Api类型，引入WXApi.h后，将[WXApi class]传入此参数
  */
 ///#end
 ///#begin en
 /**
- *	@brief	Initialize WeChat Session platform.
+ *	@brief	Initialize WeChat Session platform.If you want get the user's infomation then you may choose the method that with the appSecret.
  *
  *  @since  ver2.6.0
  *
  *	@param 	appId 	App id. Must be consistent and WeChat Timeline passed ID
+ *  @param 	appSecret 	App Secret
  *	@param 	wechatCls 	WXApi class，You should import WXApi.h，then passed [WXApi class] this parameter.
  */
 ///#end
 + (void)connectWeChatSessionWithAppId:(NSString *)appId
                             wechatCls:(Class)wechatCls;
 
++ (void)connectWeChatSessionWithAppId:(NSString *)appId
+                            appSecret:(NSString *)appSecret
+                            wechatCls:(Class)wechatCls;
+
 ///#begin zh-cn
 /**
- *	@brief	连接微信朋友圈
+ *	@brief	连接微信朋友圈。如果需要使用微信授权获取用户信息等，则可使用下面中带appSecret的方法。
  *
  *  @since  ver2.6.0
  *
  *	@param 	appId 	应用ID，必须要和好友传入ID一致
+ *  @param 	appSecret 	应用密钥
  *	@param 	wechatCls 	微信Api类型，引入WXApi.h后，将[WXApi class]传入此参数
  */
 ///#end
 ///#begin en
 /**
- *	@brief	Initialize WeChat Timeline platform.
+ *	@brief	Initialize WeChat Timeline platform.If you want get the user's infomation then you may choose the method that with the appSecret.
  *
  *  @since  ver2.6.0
  *
  *	@param 	appId 	App id. Must be consistent and WeChat Session passed ID
+ *  @param 	appSecret 	App Secret
  *	@param 	wechatCls 	WXApi class，You should import WXApi.h，then passed [WXApi class] this parameter.
  */
 ///#end
 + (void)connectWeChatTimelineWithAppId:(NSString *)appId
                              wechatCls:(Class)wechatCls;
 
++ (void)connectWeChatTimelineWithAppId:(NSString *)appId
+                             appSecret:(NSString *)appSecret
+                             wechatCls:(Class)wechatCls;
+
 ///#begin zh-cn
 /**
- *	@brief	连接微信收藏
+ *	@brief	连接微信收藏。如果需要使用微信授权获取用户信息等，则可使用下面中带appSecret的方法。
  *
  *	@param 	appId 	应用ID，必须要和好友、朋友圈传入ID一致。
+ *  @param 	appSecret 	应用密钥
  *	@param 	wechatCls 	微信Api类型，引入WXApi.h后，将[WXApi class]传入此参数
  */
 ///#end
 ///#begin en
 /**
- *	@brief	Initialize WeChat Favorite platform.
+ *	@brief	Initialize WeChat Favorite platform.If you want get the user's infomation then you may choose the method that with the appSecret.
  *
  *	@param 	appId 	App id，Must be consistent and WeChat Session、WeChat Timeline passed ID
+ *  @param 	appSecret 	App Secret
  *	@param 	wechatCls 	WXApi class，You should import WXApi.h，then passed [WXApi class] this parameter.
  */
 ///#end
 + (void)connectWeChatFavWithAppId:(NSString *)appId
+                        wechatCls:(Class)wechatCls;
+
++ (void)connectWeChatFavWithAppId:(NSString *)appId
+                        appSecret:(NSString *)appSecret
                         wechatCls:(Class)wechatCls;
 
 ///#begin zh-cn
@@ -1219,6 +1242,40 @@
  */
 ///#end
 + (void)connectWhatsApp;
+
+///#begin zh-cn
+/**
+ *	@brief	链接KaKao Talk以使用相关功能。
+ *
+ *  @since  ver2.10.0
+ *
+ */
+///#end
+///#begin en
+/**
+ *	@brief	Initialize KaKao Talk platform，This platform need import KaKaoTalkConnection.framework
+ *
+ *	@since  ver2.10.0
+ */
+///#end
++ (void)connectKaKaoTalk;
+
+///#begin zh-cn
+/**
+ *	@brief	链接KaKao Story以使用相关功能。
+ *
+ *  @since  ver2.10.0
+ *
+ */
+///#end
+///#begin en
+/**
+ *	@brief	Initialize KaKao Story platform，This platform need import KaKaoTalkConnection.framework
+ *
+ *	@since  ver2.10.0
+ */
+///#end
++ (void)connectKaKaoStory;
 
 ///#begin zh-cn
 /**
@@ -2849,6 +2906,44 @@
 
 ///#begin zh-cn
 /**
+ *	@brief	分享内容,此接口不需要弹出分享界面直接进行分享（除微信、QQ、Pinterest平台外，这些平台会调用客户端进行分享）。
+ *
+ *  @since  ver2.9.1
+ *
+ *	@param 	content 	内容对象
+ *	@param 	type 	平台类型
+ *	@param 	authOptions 	授权选项，用于指定接口在需要授权时的一些属性（如：是否自动授权，授权视图样式等）,设置未nil则表示采用默认选项
+ *  @param  shareOptions    分享选项，用于定义分享视图部分属性（如：标题、一键分享列表、功能按钮等）,默认可传入nil
+ *  @param  statusBarTips   状态栏提示
+ *  @param  targets         自定义标识集合，设置自定义标识可以在管理后台查看相关标识的分享统计数据
+ *	@param 	result 	返回事件
+ */
+///#end
+///#begin en
+/**
+ *	@brief	Share content to platform, This method does not pop up share view. (except WeChat, QQ, Pinterest platforms that will call the client to share).
+ *
+ *  @since  ver2.9.1
+ *
+ *	@param 	content 	Share content object.
+ *	@param 	type 	Platform type.
+ *	@param 	authOptions 	Authorized options，Used to authorization for custom configuration（Such as: whether the automatic authorization, authorization view style, etc.）Default nil.
+ *  @param  shareOptions    Share options，Used to share for custom configuration（Such as: title, one key sharing, function buttons, etc.）Default nil.
+ *  @param  statusBarTips   The status bar Tip flag. YES indicates display. NO indicates hidden.
+ *  @param  targets         Custom target collection, set custom target can view statistics related to sharing in the management background.
+ *	@param 	result 	Result handler.
+ */
+///#end
++ (void)shareContent:(id<ISSContent>)content
+                type:(ShareType)type
+         authOptions:(id<ISSAuthOptions>)authOptions
+        shareOptions:(id<ISSShareOptions>)shareOptions
+       statusBarTips:(BOOL)statusBarTips
+             targets:(NSArray *)targets
+              result:(SSPublishContentEventHandler)result;
+
+///#begin zh-cn
+/**
  *	@brief	一键分享内容
  *
  *	@param 	content 	内容对象
@@ -2910,6 +3005,42 @@
 
 ///#begin zh-cn
 /**
+ *	@brief	一键分享内容
+ *
+ *  @since  ver2.9.1
+ *
+ *	@param 	content 	内容对象
+ *	@param 	shareList 	平台类型列表（邮件、短信、微信、QQ、打印、拷贝除外）
+ *	@param 	authOptions 	授权选项，用于指定接口在需要授权时的一些属性（如：是否自动授权，授权视图样式等）,设置未nil则表示采用默认选项
+ *  @param  statusBarTips   状态栏提示
+ *  @param  targets         自定义标识集合，设置自定义标识可以在管理后台查看相关标识的分享统计数据
+ *	@param 	result 	返回事件
+ */
+///#end
+///#begin en
+/**
+ *	@brief	Share content to multiple platforms.
+ *
+ *  @since  ver2.9.1
+ *
+ *	@param 	content 	Share content object.
+ *	@param 	shareList 	Platform type list（exclude E-mail, SMS, WeChat, QQ, print, copy）
+ *	@param 	authOptions 	Authorized options，Used to authorization for custom configuration（Such as: whether the automatic authorization, authorization view style, etc.）Default nil.
+ *  @param  statusBarTips   The status bar Tip flag. YES indicates display. NO indicates hidden.
+ *  @param  targets         Custom target collection, set custom target can view statistics related to sharing in the management background.
+ *	@param 	result 	Result handler.
+ */
+///#end
++ (void)oneKeyShareContent:(id<ISSContent>)content
+                 shareList:(NSArray *)shareList
+               authOptions:(id<ISSAuthOptions>)authOptions
+              shareOptions:(id<ISSShareOptions>)shareOptions
+             statusBarTips:(BOOL)statusBarTips
+                   targets:(NSArray *)targets
+                    result:(SSPublishContentEventHandler)result;
+
+///#begin zh-cn
+/**
  *	@brief	显示分享视图
  *
  *	@param 	type 	平台类型
@@ -2944,6 +3075,47 @@
 
 ///#begin zh-cn
 /**
+ *	@brief	显示分享视图
+ *
+ *  @since  ver2.9.1
+ *
+ *	@param 	type 	平台类型
+ *  @param  container   用于显示分享界面的容器，如果只显示在iPhone客户端可以传入nil。如果需要在iPad上显示需要指定容器。
+ *	@param 	content 	分享内容
+ *	@param 	statusBarTips 	状态栏提示标识：YES：显示； NO：隐藏
+ *	@param 	authOptions 	授权选项，用于指定接口在需要授权时的一些属性（如：是否自动授权，授权视图样式等），默认可传入nil
+ *	@param 	shareOptions 	分享选项，用于定义分享视图部分属性（如：标题、一键分享列表、功能按钮等）,默认可传入nil
+ *  @param  targets         自定义标识集合，设置自定义标识可以在管理后台查看相关标识的分享统计数据
+ *	@param 	result 	分享返回事件处理
+ */
+///#end
+///#begin en
+/**
+ *	@brief	Show share view.
+ *
+ *  @since  ver2.9.1
+ *
+ *	@param 	type 	Platform type.
+ *  @param  container   A container for the share view, if only displayed in the iPhone can pass nil. If you want to display on the iPad needs to be specified container.
+ *	@param 	content 	Share content object.
+ *	@param 	statusBarTips 	The status bar Tip flag. YES indicates display. NO indicates hidden.
+ *	@param 	authOptions 	Authorized options，Used to authorization for custom configuration（Such as: whether the automatic authorization, authorization view style, etc.）Default nil.
+ *	@param 	shareOptions 	Share options，Used to share for custom configuration（Such as: title, one key sharing, function buttons, etc.）Default nil.
+ *  @param  targets         Custom target collection, set custom target can view statistics related to sharing in the management background.
+ *	@param 	result 	Result handler.
+ */
+///#end
++ (void)showShareViewWithType:(ShareType)type
+                    container:(id<ISSContainer>)container
+                      content:(id<ISSContent>)content
+                statusBarTips:(BOOL)statusBarTips
+                  authOptions:(id<ISSAuthOptions>)authOptions
+                 shareOptions:(id<ISSShareOptions>)shareOptions
+                      targets:(NSArray *)targets
+                       result:(SSPublishContentEventHandler)result;
+
+///#begin zh-cn
+/**
  *	@brief	显示分享菜单
  *
  *	@param 	container 	用于显示分享界面的容器，如果只显示在iPhone客户端可以传入nil。如果需要在iPad上显示需要指定容器。
@@ -2974,6 +3146,47 @@
                                   statusBarTips:(BOOL)statusBarTips
                                     authOptions:(id<ISSAuthOptions>)authOptions
                                    shareOptions:(id<ISSShareOptions>)shareOptions
+                                         result:(SSPublishContentEventHandler)result;
+
+///#begin zh-cn
+/**
+ *	@brief	显示分享菜单
+ *
+ *  @since  ver2.9.1
+ *
+ *	@param 	container 	用于显示分享界面的容器，如果只显示在iPhone客户端可以传入nil。如果需要在iPad上显示需要指定容器。
+ *	@param 	shareList 	平台类型列表
+ *	@param 	content 	分享内容
+ *  @param  statusBarTips   状态栏提示标识：YES：显示； NO：隐藏
+ *  @param  authOptions 授权选项，用于指定接口在需要授权时的一些属性（如：是否自动授权，授权视图样式等），默认可传入nil
+ *  @param  shareOptions    分享选项，用于定义分享视图部分属性（如：标题、一键分享列表、功能按钮等）,默认可传入nil
+ *  @param  targets         自定义标识集合，设置自定义标识可以在管理后台查看相关标识的分享统计数据
+ *  @param  result  分享返回事件处理
+ */
+///#end
+///#begin en
+/**
+ *	@brief	Show share menu.
+ *
+ *  @since  ver2.9.1
+ *
+ *	@param 	container 	A container for the share view, if only displayed in the iPhone can pass nil. If you want to display on the iPad needs to be specified container.
+ *	@param 	shareList 	Platform type list.
+ *	@param 	content 	Share content object.
+ *  @param  statusBarTips   The status bar Tip flag. YES indicates display. NO indicates hidden.
+ *  @param  authOptions Authorized options，Used to authorization for custom configuration（Such as: whether the automatic authorization, authorization view style, etc.）Default nil.
+ *  @param  shareOptions    Share options，Used to share for custom configuration（Such as: title, one key sharing, function buttons, etc.）Default nil.
+ *  @param  targets         Custom target collection, set custom target can view statistics related to sharing in the management background.
+ *  @param  result  Result handler.
+ */
+///#end
++ (id<ISSShareActionSheet>)showShareActionSheet:(id<ISSContainer>)container
+                                      shareList:(NSArray *)shareList
+                                        content:(id<ISSContent>)content
+                                  statusBarTips:(BOOL)statusBarTips
+                                    authOptions:(id<ISSAuthOptions>)authOptions
+                                   shareOptions:(id<ISSShareOptions>)shareOptions
+                                        targets:(NSArray *)targets
                                          result:(SSPublishContentEventHandler)result;
 
 ///#begin zh-cn
@@ -3040,56 +3253,43 @@
              statusBarTips:(BOOL)statusBarTips
                     result:(SSPublishContentEventHandler)result;
 
-
-#pragma mark - 分享有奖
-
 ///#begin zh-cn
 /**
- *	@brief	创建分享有奖视图控制器
+ *	@brief	使用客户端进行内容分享（仅支持新浪微博、微信、QQ、Pinterest、Google+）
  *
- *	@return	分享有奖视图控制器
+ *  @since  ver2.9.1
+ *
+ *	@param 	content 	内容对象
+ *	@param 	type 	平台类型
+ *	@param 	authOptions 	授权选项，用于指定接口在需要授权时的一些属性（如：是否自动授权，授权视图样式等）,设置未nil则表示采用默认选项
+ *  @param  shareOptions    分享选项，用于定义分享视图部分属性（如：标题、一键分享列表、功能按钮等）,默认可传入nil
+ *  @param  statusBarTips   状态栏提示
+ *  @param  targets         自定义标识集合，设置自定义标识可以在管理后台查看相关标识的分享统计数据
+ *	@param 	result 	返回事件
  */
 ///#end
 ///#begin en
 /**
- *	@brief	Create a share awards view controller.
+ *	@brief	Content sharing using a client (only for Sina Weibo, WeChat, QQ, Pinterest, Google+)
  *
- *	@return	Awrads view controller.
+ *  @since  ver2.9.1
+ *
+ *	@param 	content 	Content string.
+ *	@param 	type 	Platform type
+ *	@param 	authOptions 	Authorized options，Used to authorization for custom configuration（Such as: whether the automatic authorization, authorization view style, etc.）Default nil.
+ *  @param  shareOptions    Share options，Used to share for custom configuration（Such as: title, one key sharing, function buttons, etc.）Default nil.
+ *  @param  statusBarTips   The status bar Tip flag
+ *  @param  targets         Custom target collection, set custom target can view statistics related to sharing in the management background.
+ *	@param 	result 	Result handler.
  */
 ///#end
-+ (SSAwardViewController *)awardViewController;
-
-///#begin zh-cn
-/**
- *	@brief	设置获取金币通知处理
- *
- *	@param 	handler 	通知处理器
- */
-///#end
-///#begin en
-/**
- *	@brief	Set obtain conins notification handler.
- *
- *	@param 	handler 	Handler object.
- */
-///#end
-+ (void)setObtainCoinsHandler:(SSAwardObtainCoinsHandler)handler;
-
-///#begin zh-cn
-/**
- *	@brief	设置购买物品通知处理
- *
- *	@param 	handler 	通知处理器
- */
-///#end
-///#begin en
-/**
- *	@brief	Set buy item notification handler.
- *
- *	@param 	handler 	Handler object.
- */
-///#end
-+ (void)setBuyItemHandler:(SSAwardBuyItemHandler)handler;
++ (void)clientShareContent:(id<ISSContent>)content
+                      type:(ShareType)type
+               authOptions:(id<ISSAuthOptions>)authOptions
+              shareOptions:(id<ISSShareOptions>)shareOptions
+             statusBarTips:(BOOL)statusBarTips
+                   targets:(NSArray *)targets
+                    result:(SSPublishContentEventHandler)result;
 
 
 @end

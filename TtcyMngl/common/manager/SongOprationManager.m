@@ -47,7 +47,6 @@ NSMutableArray * collectArray;
     }else{
         [HUD message:@"  "];
     }
-    
 }
 + (void)download:(operationType)type Song:(SongObject *)song callBack:(void (^)(BOOL))callBack
 {

@@ -40,8 +40,8 @@
     MusicCell *selfCell= [[MusicCell alloc]initWithFrame:CGRectMake(0, 0, 60, CellH)];
     selfCell.transform = CGAffineTransformMakeRotation(M_PI);
     
-    UILabel *uiLabel=[[UILabel alloc]initWithFrame:CGRectMake(0, 0, CellH,0.4 )];
-    uiLabel.backgroundColor=[UIColor whiteColor];
+    UILabel *uiLabel=[[UILabel alloc]initWithFrame:CGRectMake(0, 0, CellH,.4f )];
+    uiLabel.backgroundColor=[UIColor colorWithWhite:.7f alpha:1.f];
     [selfCell addSubview:uiLabel];
     
     selfCell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -58,8 +58,6 @@
     return selfCell;
 }
 
-
-
 -(void)celebrityWithModel:(SongObject *)model{
     
     _lblName.text=model.songName;
@@ -67,19 +65,22 @@
 }
 -(void)albumWithModel:(Album *)model{
 
+    model.name = [model.name stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     _lblName.text=model.name;
-
 }
 -(void)setMusicWithModel:(SongObject *)model{
     
     if (model.avatarImageUrl!=nil) {
         UIImageView *image=[[UIImageView alloc]initWithFrame:CGRectMake(6, 6, 50, 50)];
         image.tag=1001;
+        image.layer.cornerRadius = 25.f;
+        image.layer.masksToBounds = YES;
+        
         [image sd_setImageWithURL:[NSURL URLWithString:model.avatarImageUrl] placeholderImage:[UIImage imageNamed:@"face.jpg"]];
         image.transform = CGAffineTransformMakeRotation(-M_PI_2);
         [self addSubview:image];
     }
-    
+    model.songName = [model.songName stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     _lblName.frame=CGRectMake(85, 13, 267, 36);
     _lblName.text=model.songName;
 }

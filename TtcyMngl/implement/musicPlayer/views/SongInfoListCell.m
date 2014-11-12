@@ -110,7 +110,7 @@
 -(void)createSeparatorLine
 {
     getPlayBarHeight()
-    UIView * line = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kMainScreenHeight-PlayBarHeight*2, .3f)];
+    UIView * line = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kMainScreenHeight, .5f)];
     line.backgroundColor = [UIColor colorWithWhite:1 alpha:.5];
     [self.contentView addSubview:line];
 }

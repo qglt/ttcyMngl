@@ -22,7 +22,7 @@ PODS:
   - SDWebImage (3.7.1):
     - SDWebImage/Core
   - SDWebImage/Core (3.7.1)
-  - StreamingKit (0.1.23)
+  - StreamingKit (0.1.25)
   - TouchJSON (1.1)
 
 DEPENDENCIES:
@@ -39,7 +39,7 @@ SPEC CHECKSUMS:
   NSData+Base64: aae92a2e3f0bd88b29fe6093551ded3f5c062548
   Reachability: 8e9635e3cb4f98e7f825e51147f677ecc694d0e7
   SDWebImage: 116e88633b5b416ea0ca4b334a4ac59cf72dd38d
-  StreamingKit: 97f1dd5a76693fd55f616e8dfb13b3f456dd11c7
+  StreamingKit: 5b36623e7246cccddb8db3aee79c43bb180a51be
   TouchJSON: b40940e40e53bb9b1ad60c63e01ed83bff93d53e
 
-COCOAPODS: 0.33.1
+COCOAPODS: 0.34.4

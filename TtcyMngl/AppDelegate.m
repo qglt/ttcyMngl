@@ -21,7 +21,7 @@
 /**
  *  微信开放平台申请得到的 appid, 需要同时添加在 URL schema
  */
-NSString * const WXAppId = @"wxd930ea5d5a258f4f";
+NSString * const WXAppId = @"wx6eb5cd4aa85577b0";//wxd930ea5d5a258f4f
 
 /**
  * 微信开放平台和商户约定的支付密钥
@@ -60,19 +60,17 @@ NSString * const HUDDismissNotification = @"HUDDismissNotification";
     [MTA startWithAppkey:@"AV7ZHE63DG6J"];
     
     // Override point for customization after application launch.
-    UINavigationBar * bar = [UINavigationBar appearance];
-    [bar setBackgroundImage:[Utils createImageWithColor:NVC_COLOR] forBarMetrics:UIBarMetricsDefault];
-    [bar setTintColor:[UIColor whiteColor]];
     
     self.window.rootViewController = [[MainViewController alloc]init];
-    
-//    [WXApi registerApp:WXAppId];
     
     [self setSessionSetting];
     
     [self addNotifiCation];
     
+    [self setNavigationBar];
+    
     [[UserShareSDK shareInstance] setShareConfig];//初始化分享配置
+    [WXApi registerApp:@"wx88182b0d759660c0"];
     
     [FMDBManager defaultManager];//创建数据库，并初始化
     
@@ -86,6 +84,70 @@ NSString * const HUDDismissNotification = @"HUDDismissNotification";
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     return YES;
+}
+- (void)setNavigationBar
+{
+    UINavigationBar * bar = [UINavigationBar appearance];
+    if (isIOS7) {
+        [bar setBackgroundImage:[UIImage imageNamed:@"iOS7_NVB_BG"] forBarMetrics:UIBarMetricsDefault];
+    }else{
+        [bar setBackgroundImage:[UIImage imageNamed:@"iOS6_NVB_BG"] forBarMetrics:UIBarMetricsDefault];
+    }
+}
+-(void) onReq:(BaseReq*)req
+{
+    if([req isKindOfClass:[GetMessageFromWXReq class]])
+    {
+        // 微信请求App提供内容， 需要app提供内容后使用sendRsp返回
+        NSString *strTitle = [NSString stringWithFormat:@"微信请求App提供内容"];
+        NSString *strMsg = @"微信请求App提供内容，App要调用sendResp:GetMessageFromWXResp返回给微信";
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:strTitle message:strMsg delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        alert.tag = 1000;
+        [alert show];
+    }
+    else if([req isKindOfClass:[ShowMessageFromWXReq class]])
+    {
+        ShowMessageFromWXReq* temp = (ShowMessageFromWXReq*)req;
+        WXMediaMessage *msg = temp.message;
+        
+        //显示微信传过来的内容
+        WXAppExtendObject *obj = msg.mediaObject;
+        
+        NSString *strTitle = [NSString stringWithFormat:@"微信请求App显示内容"];
+        NSString *strMsg = [NSString stringWithFormat:@"标题：%@ \n内容：%@ \n附带信息：%@ \n缩略图:%u bytes\n\n", msg.title, msg.description, obj.extInfo, msg.thumbData.length];
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:strTitle message:strMsg delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [alert show];
+    }
+    else if([req isKindOfClass:[LaunchFromWXReq class]])
+    {
+        //从微信启动App
+        NSString *strTitle = [NSString stringWithFormat:@"从微信启动"];
+        NSString *strMsg = @"这是从微信启动的消息";
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:strTitle message:strMsg delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [alert show];
+    }
+}
+-(void) onResp:(BaseResp*)resp
+{
+    if([resp isKindOfClass:[SendMessageToWXResp class]])
+    {
+        if (resp.errCode == 0) {
+            [HUD message:@" "];
+        }else{
+            [HUD message:@"  "];
+        }
+    }
+    if ([resp isKindOfClass:[PayResp class]]) {
+        
+        if (resp.errCode == 0) {
+            [HUD message:@" "];
+        }else{
+            [HUD message:@"  "];
+        }
+    }
 }
 -(void)setSessionSetting
 {
@@ -164,19 +226,17 @@ NSString * const HUDDismissNotification = @"HUDDismissNotification";
 #pragma ShareSDK - 检查是否已加入handleOpenURL的处理方法，如果没有则添加如下代码
 - (BOOL)application:(UIApplication *)application  handleOpenURL:(NSURL *)url
 {
-    return [ShareSDK handleOpenURL:url
-                        wxDelegate:self];//||[WXApi handleOpenURL:url delegate:self];
+    return ([ShareSDK handleOpenURL:url
+                        wxDelegate:self]+[WXApi handleOpenURL:url delegate:self]);
 }
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
 {
-    return [ShareSDK handleOpenURL:url
+    return ([ShareSDK handleOpenURL:url
                  sourceApplication:sourceApplication
                         annotation:annotation
-                        wxDelegate:self];//||[WXApi handleOpenURL:url delegate:self];
+                        wxDelegate:self]+[WXApi handleOpenURL:url delegate:self]);
 }
-
-
 - (void)applicationWillResignActive:(UIApplication *)application
 {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
@@ -202,22 +262,5 @@ NSString * const HUDDismissNotification = @"HUDDismissNotification";
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-}
-- (void)onResp:(BaseResp *)resp
-{
-    if ([resp isKindOfClass:[PayResp class]]) {
-        
-        NSString *strTitle = [NSString stringWithFormat:@"支付结果"];
-        NSString *strMsg = [NSString stringWithFormat:@"errcode:%d", resp.errCode];
-        
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:strTitle
-                                                        message:strMsg
-                                                       delegate:self
-                                              cancelButtonTitle:@"OK"
-                                              otherButtonTitles:nil, nil];
-        [alert show];
-        
-        [[NSNotificationCenter defaultCenter] postNotificationName:HUDDismissNotification object:nil userInfo:nil];
-    }
 }
 @end

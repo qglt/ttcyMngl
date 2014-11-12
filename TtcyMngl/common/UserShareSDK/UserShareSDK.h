@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-#import <shareSDK/ShareSDK.h>
+#import <ShareSDK/ShareSDK.h>
 #import "WXApi.h"
 #import "WeiboApi.h"
 #import <TencentOpenAPI/TencentOAuth.h>

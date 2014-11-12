@@ -84,7 +84,11 @@
     _dataTabel.dataSource = self;
     _dataTabel.showsVerticalScrollIndicator = NO;
     _dataTabel.transform = CGAffineTransformMakeRotation(-M_PI_2);
-    _dataTabel.frame = CGRectMake(0, 0, kMainScreenWidth-40, kMainScreenHeight-PlayBarHeight*2);
+    CGFloat y = 44;
+    if (isIOS7) {
+        y = 64;
+    }
+    _dataTabel.frame = CGRectMake(0, 0, kMainScreenWidth, kMainScreenHeight+topDistance-y);
     [self.view addSubview:_dataTabel];
 }
 - (void)createMoreOperationPanel

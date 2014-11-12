@@ -119,7 +119,7 @@
     down.frame = CGRectMake( 0,0,30.f,30.f);
     
     down.backgroundColor = [UIColor clearColor];
-    down.center = CGPointMake(self.bounds.size.width/4.0f, kMainScreenHeight-PlayBarHeight*2-50.f);
+    down.center = CGPointMake(self.bounds.size.width/4.0f, kMainScreenHeight-PlayBarHeight*2-80.f);
     down.tag = TAG_DOWNLOAD;
     [down addTarget:self action:@selector(buttonAction:) forControlEvents:UIControlEventTouchUpInside];
     [down setShowsTouchWhenHighlighted:YES];

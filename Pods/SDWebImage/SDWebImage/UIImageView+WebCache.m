@@ -6,7 +6,7 @@
  * file that was distributed with this source code.
  */
 
-#import <UIImageView+WebCache.h>
+#import "UIImageView+WebCache.h"
 #import "objc/runtime.h"
 #import "UIView+WebCacheOperation.h"
 

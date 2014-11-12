@@ -62,7 +62,7 @@
 }
 - (void)createMessageBar
 {
-    UIView *view=[[UIView alloc]initWithFrame:CGRectMake(0, 0, 90, kMainScreenHeight-PlayBarHeight*2/3.f)];
+    UIView *view=[[UIView alloc]initWithFrame:CGRectMake(0, 0, 90, kMainScreenHeight-PlayBarHeight*2/3.f-64)];
     view.backgroundColor = [UIColor clearColor];
     [self.mostlyView addSubview:view];
     
@@ -74,7 +74,7 @@
 }
 - (void)createSPLine
 {
-    UIView * line = [[UIView alloc]initWithFrame:CGRectMake(90.0-.4f, 20, .4f,kMainScreenHeight-PlayBarHeight*2/3.f )];
+    UIView * line = [[UIView alloc]initWithFrame:CGRectMake(90.0-.4f, 0, .4f,kMainScreenHeight-PlayBarHeight*2/3.f )];
     line.backgroundColor = [Utils colorWithHexString:@"#04DDFF"];
     [self.view addSubview:line];
 }
@@ -94,7 +94,7 @@
 #pragma mark - infoBar Condition -----------------------------
 - (void)createHeadWithView:(UIView *)view
 {
-    UIImageView * headImageView=[[UIImageView alloc]initWithFrame:CGRectMake(5, 70, 80, 80)];
+    UIImageView * headImageView=[[UIImageView alloc]initWithFrame:CGRectMake(5, 26, 80, 80)];
     [headImageView sd_setImageWithURL:[NSURL URLWithString:_celebrity.photoURL] placeholderImage:[UIImage imageNamed:@"face.jpg"]];
     
     headImageView.layer.cornerRadius = headImageView.frame.size.width/2.f;
@@ -108,19 +108,19 @@
     nameLabel.font = [UIFont fontWithName:@"Menksoft Qagan" size:25.0f];
     nameLabel.text = _celebrity.name;
     nameLabel.transform = CGAffineTransformMakeRotation(M_PI_2);
-    nameLabel.frame = CGRectMake(5, 180, 30,180);
+    nameLabel.frame = CGRectMake(5, 136, 30,180);
     [view addSubview:nameLabel];
 }
 #pragma mark - 扩展功能 －－－－－－－－－－－－－－－－－－－－－
 - (void)createSongLaelWithView:(UIView *)view
 {
-    UIButton * button = [self createTextButtonWithFrame:CGRectMake(50, 180, 30,90) title:@"" tag:TAG_SONG];
+    UIButton * button = [self createTextButtonWithFrame:CGRectMake(50, 136, 30,90) title:@"" tag:TAG_SONG];
     [button setTitleEdgeInsets:UIEdgeInsetsMake(0, -22, 0, 22)];
     [view addSubview:button];
 }
 - (void)createAlbumLabelWithView:(UIView *)view
 {
-    UIButton * button = [self createTextButtonWithFrame:CGRectMake(50, 240, 30,90) title:@"" tag:TAG_ALBUM];
+    UIButton * button = [self createTextButtonWithFrame:CGRectMake(50, 196, 30,90) title:@"" tag:TAG_ALBUM];
     [button setTitleEdgeInsets:UIEdgeInsetsMake(0, 22, 0, -22)];
     [view addSubview:button];
 }

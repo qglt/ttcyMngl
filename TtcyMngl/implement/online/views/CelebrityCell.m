@@ -37,7 +37,7 @@
     CelebrityCell *selfCell= [[CelebrityCell alloc]initWithFrame:CGRectMake(0, 0, 60, kMainScreenHeight)];
     selfCell.transform = CGAffineTransformMakeRotation(M_PI);
     UILabel *uiLabel=[[UILabel alloc]initWithFrame:CGRectMake(0, 0, kMainScreenHeight,0.4 )];
-    uiLabel.backgroundColor=[UIColor whiteColor];
+    uiLabel.backgroundColor=[UIColor colorWithWhite:.7f alpha:1.f];
     [selfCell addSubview:uiLabel];
     selfCell.selectionStyle = UITableViewCellSelectionStyleNone;
     UILabel *lblName=[[UILabel alloc]init];
@@ -50,18 +50,18 @@
     return selfCell;
 }
 
-
-
 -(void)celebrityWithModel:(Celebrity *)model{
     if (model.photoURL!=nil) {
         UIImageView *image=[[UIImageView alloc]initWithFrame:CGRectMake(6, 6, 50, 50)];
         image.tag=1001;
+        image.layer.cornerRadius = 25.f;
+        image.layer.masksToBounds = YES;
         [image setImageWithURL:[NSURL URLWithString:model.photoURL] placeholderImage:[UIImage imageNamed:@"face.jpg"]];
         
         image.transform = CGAffineTransformMakeRotation(-M_PI_2);
         [self addSubview:image];
     }
-    
+    model.name = [model.name stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     _lblName.text=model.name;
     _lblName.font=[self setTransformuiFont:_lblName.font];
 }

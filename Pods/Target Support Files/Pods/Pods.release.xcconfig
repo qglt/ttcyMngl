@@ -1,0 +1,6 @@
+GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
+HEADER_SEARCH_PATHS = "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/ASIHTTPRequest" "${PODS_ROOT}/Headers/Public/FMDB" "${PODS_ROOT}/Headers/Public/NSData+Base64" "${PODS_ROOT}/Headers/Public/Reachability" "${PODS_ROOT}/Headers/Public/SDWebImage" "${PODS_ROOT}/Headers/Public/StreamingKit" "${PODS_ROOT}/Headers/Public/TouchJSON" "$(SDKROOT)/usr/include/libxml2"
+OTHER_CFLAGS = $(inherited) -isystem "${PODS_ROOT}/Headers/Public" -isystem "${PODS_ROOT}/Headers/Public/ASIHTTPRequest" -isystem "${PODS_ROOT}/Headers/Public/FMDB" -isystem "${PODS_ROOT}/Headers/Public/NSData+Base64" -isystem "${PODS_ROOT}/Headers/Public/Reachability" -isystem "${PODS_ROOT}/Headers/Public/SDWebImage" -isystem "${PODS_ROOT}/Headers/Public/StreamingKit" -isystem "${PODS_ROOT}/Headers/Public/TouchJSON"
+OTHER_LDFLAGS = -ObjC -l"Pods-ASIHTTPRequest" -l"Pods-FMDB" -l"Pods-NSData+Base64" -l"Pods-Reachability" -l"Pods-SDWebImage" -l"Pods-StreamingKit" -l"Pods-TouchJSON" -l"sqlite3" -l"xml2.2" -l"z.1" -framework "AudioToolbox" -framework "CFNetwork" -framework "CoreFoundation" -framework "CoreGraphics" -framework "Foundation" -framework "ImageIO" -framework "MobileCoreServices" -framework "SystemConfiguration"
+OTHER_LIBTOOLFLAGS = $(OTHER_LDFLAGS)
+PODS_ROOT = ${SRCROOT}/Pods

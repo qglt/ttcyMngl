@@ -41,6 +41,7 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    [self setBaseCondition];
     [self createAdvertisementView];
     [self createPageControl];
     [self createContentView];
@@ -52,16 +53,22 @@
     if (is4Inch) {
         self.view.backgroundColor = CENT_COLOR_4INCH;
     }else{
-        
+        self.view.backgroundColor = CENT_COLOR;
     }
+}
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    _adView.contentInset = UIEdgeInsetsMake(20, 0, 0, 0);
 }
 - (void)createAdvertisementView
 {
     NSArray *holders = @[@"intro_content_img@2x.png",@"ad_img@2x.png"];
     NSArray *items  = @[@"http://mongol.ttcy.com/image_app_ad/iosAppAdv_1.jpg",@"http://mongol.ttcy.com/image_app_ad/iosAppAdv_2.jpg"];
     
-    self.adView = [[OnlineAvd alloc]initWithFrame:CGRectMake(0, 20, kMainScreenWidth, 140) items:items placeHolders:holders];
+    self.adView = [[OnlineAvd alloc]initWithFrame:CGRectMake(0, 0, kMainScreenWidth, 140) items:items placeHolders:holders];
     _adView.delegate = self;
+    _adView.backgroundColor = [UIColor redColor];
     [self.view addSubview:_adView];
 }
 - (void)createPageControl

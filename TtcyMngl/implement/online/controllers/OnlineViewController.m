@@ -69,7 +69,7 @@
 #pragma mark 添加右侧导航
 -(void)addNavigationView{
     
-    OnlineCelebritView *onlineCelebritView=[[OnlineCelebritView  alloc] initWithFrame:CGRectMake(0, 20, navigationWhile, kMainScreenHeight-20-PlayBarHeight*2/3.f+topDistance)];
+    OnlineCelebritView *onlineCelebritView=[[OnlineCelebritView  alloc] initWithFrame:CGRectMake(0, 0, navigationWhile, kMainScreenHeight-20-PlayBarHeight*2/3.f+topDistance)];
     
     onlineCelebritView.delegate=self;
     
@@ -86,7 +86,7 @@
     celebrityTableView.dataSource=self;
     celebrityTableView.delegate=self;
     celebrityTableView.transform =CGAffineTransformMakeRotation(-M_PI_2);
-    celebrityTableView.frame=CGRectMake(navigationWhile+2,20, kMainScreenWidth-navigationWhile,kMainScreenHeight-PlayBarHeight);
+    celebrityTableView.frame=CGRectMake(navigationWhile+2,0, kMainScreenWidth-navigationWhile,kMainScreenHeight-PlayBarHeight);
     [celebrityTableView setBackgroundColor:[UIColor clearColor]];
     celebrityTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [_mostlyView addSubview:celebrityTableView];

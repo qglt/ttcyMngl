@@ -54,7 +54,6 @@
     [self OnlineviewDidLoad];
     UIButton *butt=[[UIButton alloc]init];
     butt.tag=1;
-    [self TypebtnClick:butt];
 }
 
 

@@ -38,7 +38,7 @@
 +(id)newCell{
     AlbumCell *selfCell= [[AlbumCell alloc]initWithFrame:CGRectMake(0, 0, 60, CellH)];
     UILabel *uiLabel=[[UILabel alloc]initWithFrame:CGRectMake(0, 0, CellH,0.4 )];
-    uiLabel.backgroundColor=[UIColor whiteColor];
+    uiLabel.backgroundColor=[UIColor colorWithWhite:.7f alpha:1.f];
     [selfCell addSubview:uiLabel];
      [selfCell setBackgroundColor:[UIColor clearColor]];
     selfCell.transform = CGAffineTransformMakeRotation(M_PI);
@@ -58,10 +58,13 @@
     if (model.photoURL!=nil) {
         UIImageView *image=[[UIImageView alloc]initWithFrame:CGRectMake(6, 6, 50, 50)];
         [image setImageWithURL:[NSURL URLWithString:model.photoURL] placeholderImage:[UIImage imageNamed:@"face.jpg"]];
+        image.layer.cornerRadius = 25.f;
+        image.layer.masksToBounds = YES;
         
         image.transform = CGAffineTransformMakeRotation(-M_PI_2);
         [self addSubview:image];
     }
+    model.name = [model.name stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     _lblName.text=model.name;
     [self addSubview:_lblName];
 }

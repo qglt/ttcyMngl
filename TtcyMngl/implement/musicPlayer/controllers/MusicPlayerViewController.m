@@ -24,9 +24,13 @@
 #import "AccountManager.h"
 #import "AccountInfo.h"
 
+#define TAG_HIDDE 100
+#define TAG_LIST  101
+
 @interface MusicPlayerViewController ()<ASIHTTPRequestDelegate,UIScrollViewDelegate,MusicOperationPanelDelegate,SongInfoViewDelegate>
 {
     NSInteger currentLrcIndex;
+    BOOL _listShow;
 }
 @property (nonatomic,strong)NSString * lrcFile;
 
@@ -70,6 +74,8 @@
    
     [self setBaseCondition];
     
+    [self createTopBar];
+    
     [self createPageControl];
     
     [self createScorwView];
@@ -82,14 +88,91 @@
     
     [self getCurrentLrc];
     
-    [self createListView];
-    
-//    [self createHiddeButton];
-    
     [self createSeparatorLine];
+    
+    [self createListView];
     
     [self addNotification];
     
+}
+-(void)createTopBar
+{
+    UIView * view = [[UIView alloc]init];
+    if (isIOS7) {
+        view.frame = CGRectMake(0, 0, kMainScreenWidth, 64);
+        view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"iOS7_NVB_BG"]];
+    }else{
+        view.frame = CGRectMake(0, 0, kMainScreenWidth, 44);
+        view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"iOS6_NVB_BG"]];
+    }
+    UIView * line = [[UIView alloc]initWithFrame:CGRectMake(0, view.bounds.size.height-.5f, kMainScreenWidth, .5f)];
+    line.backgroundColor = [UIColor colorWithWhite:0 alpha:.5f];
+    [view addSubview:line];
+    view.layer.shadowColor = [UIColor blackColor].CGColor;
+    view.layer.shadowOffset = CGSizeMake(0, .5f);
+    view.layer.shadowOpacity = .5f;
+    [self.view addSubview:view];
+    
+    UIButton * listBtn = [self createButtonWithImage:@"queue_list" tag:TAG_LIST];
+    listBtn.center = CGPointMake(kMainScreenWidth - listBtn.bounds.size.width/2.f-12, view.bounds.size.height-6-listBtn.bounds.size.height/2.f);
+    [view addSubview:listBtn];
+    UIButton * hidde = [self createButtonWithImage:@"hidde_bar" tag:TAG_HIDDE];
+    hidde.center = CGPointMake(12+hidde.bounds.size.width/2.f, view.bounds.size.height-6-hidde.bounds.size.height/2.f);
+    [view addSubview:hidde];
+}
+- (UIButton *)createButtonWithImage:(NSString *)image tag:(NSInteger)tag
+{
+    UIButton * button = [UIButton buttonWithType:UIButtonTypeCustom];
+    button.frame = CGRectMake(0, 0, PlayBarHeight/2.f, PlayBarHeight/2.f);
+    
+    button.backgroundColor = [UIColor clearColor];
+    
+    button.tag = tag;
+    [button addTarget:self action:@selector(buttonAction:) forControlEvents:UIControlEventTouchUpInside];
+    [button setShowsTouchWhenHighlighted:YES];
+    
+    [button setImage:[UIImage imageNamed:image] forState:UIControlStateNormal];
+    
+    return button;
+}
+- (void)buttonAction:(UIButton *)sender
+{
+    switch (sender.tag) {
+        case TAG_HIDDE:     [self hiddeSelf];    break;
+        case TAG_LIST:      [self showListView]; break;
+        default:
+            break;
+    }
+}
+- (void)showListView
+{
+    if (_listShow) {
+        
+        [UIView animateWithDuration:.2f animations:^{
+            _listVC.view.alpha = 0;
+        }];
+    }else{
+        [UIView animateWithDuration:.25 animations:^{
+            _listVC.view.alpha = 1;
+        }];
+    }
+    _listShow = !_listShow;
+}
+- (UIImage *)shotView:(UIView *)view inRect:(CGRect)rect
+{
+    if(UIGraphicsBeginImageContextWithOptions != NULL)
+    {
+        UIGraphicsBeginImageContextWithOptions(view.frame.size, NO, 0.0);
+    } else {
+        UIGraphicsBeginImageContext(view.frame.size);
+    }
+    
+    //获取图像
+    [self.view.layer renderInContext:UIGraphicsGetCurrentContext()];
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIImage *resultImg = [UIImage imageWithCGImage:CGImageCreateWithImageInRect(image.CGImage, rect)];
+    UIGraphicsEndImageContext();
+    return resultImg;
 }
 - (void)viewDidAppear:(BOOL)animated
 {
@@ -183,11 +266,15 @@
 #pragma mark - 初始化控件 －－－－－－－－－－－－－－－－－－－－－－
 -(void)createScorwView
 {
-    CGRect frame=CGRectMake(40, topDistance, kMainScreenWidth-40, kMainScreenHeight-PlayBarHeight*2);
+    CGRect frame=CGRectMake(40, 44, kMainScreenWidth-40, kMainScreenHeight-PlayBarHeight*2-44);
+    if (isIOS7) {
+        frame=CGRectMake(40, 64, kMainScreenWidth-40, kMainScreenHeight-PlayBarHeight*2-44);
+    }
     self.contentView = [[UIScrollView alloc]initWithFrame:frame];
     _contentView.backgroundColor = [UIColor clearColor];
-    _contentView.contentSize = CGSizeMake(0, (kMainScreenHeight-PlayBarHeight*2)*3);
-    _contentView.contentOffset = CGPointMake(0, kMainScreenHeight-PlayBarHeight*2);
+    
+    _contentView.contentSize = CGSizeMake(0, (kMainScreenHeight-PlayBarHeight*2-44)*2);
+    _contentView.contentOffset = CGPointMake(0, 0);
     
     _contentView.pagingEnabled=YES;
     _contentView.showsVerticalScrollIndicator=NO;
@@ -198,7 +285,7 @@
 }
 -(void)createPageControl
 {
-    self.pageControl=[[QTPageControl alloc]initWithFrame:CGRectMake(5, 0, 5, kMainScreenHeight-PlayBarHeight*2-120) itemCount:3];
+    self.pageControl=[[QTPageControl alloc]initWithFrame:CGRectMake(5, 80, 10, kMainScreenHeight-PlayBarHeight*2-120-64) itemCount:2];
     _pageControl.center = CGPointMake(20, (kMainScreenHeight - PlayBarHeight*2)/2.f+10);
     __unsafe_unretained MusicPlayerViewController * main = self;
     _pageControl.pageItemClick =^(NSInteger index){
@@ -210,14 +297,14 @@
 }
 -(void)createLrcTableView
 {
-    self.lrcTableView = [[SongLrcTableView alloc]initWithFrame:CGRectMake(0, (kMainScreenHeight-PlayBarHeight*2)*2, kMainScreenWidth-40, kMainScreenHeight-PlayBarHeight) andRowHeight:60.0f];
+    self.lrcTableView = [[SongLrcTableView alloc]initWithFrame:CGRectOffset(_contentView.bounds, 0, _contentView.frame.size.height) andRowHeight:60.0f];
     [self.contentView addSubview:_lrcTableView];
     
 }
 
 -(void)createInfoView
 {
-    self.infoView = [[SongInfoView alloc]initWithFrame:CGRectMake(0, (kMainScreenHeight-PlayBarHeight*2), kMainScreenWidth-40, kMainScreenHeight-PlayBarHeight) Song:_currentSong];
+    self.infoView = [[SongInfoView alloc]initWithFrame:CGRectOffset(_contentView.bounds, 0, 0) Song:_currentSong];
     _infoView.delegate = self;
     [self.contentView addSubview:_infoView];
 }
@@ -226,13 +313,19 @@
     self.listVC = [[PlayQueueListViewController alloc]initWithListArray:[[PlayBar defultPlayer]
                                         getPlayerQueueData]];
     [[PlayBar defultPlayer]addListener:_listVC];
-    _listVC.view.frame = CGRectMake(0, 0, kMainScreenWidth-40, kMainScreenHeight-PlayBarHeight*2);
-    _listVC.view.backgroundColor = [UIColor clearColor];
-    [_contentView addSubview:_listVC.view];
+    CGFloat y = 44;
+    if (isIOS7) {
+        y = 64;
+    }
+    _listVC.view.frame = CGRectMake(0, y, kMainScreenWidth, kMainScreenHeight - y + topDistance);
+    _listVC.view.backgroundColor = [UIColor colorWithWhite:0 alpha:.3f];
+    [self addChildViewController:_listVC];
+    [self.view addSubview:_listVC.view];
+    _listVC.view.alpha  = 0;
 }
 -(void)createSeparatorLine
 {
-    UIView * line = [[UIView alloc]initWithFrame:CGRectMake(40, topDistance, .3f, kMainScreenHeight-PlayBarHeight*2)];
+    UIView * line = [[UIView alloc]initWithFrame:CGRectMake(40, 64, .3f, kMainScreenHeight-PlayBarHeight*2-64)];
     line.backgroundColor = [Utils colorWithHexString:@"#04DDFF"];
     [self.view addSubview:line];
 }

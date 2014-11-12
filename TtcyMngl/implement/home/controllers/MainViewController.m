@@ -122,7 +122,7 @@
     
     self.navigation = [[UINavigationController alloc]initWithRootViewController:[[OnlineMainViewController alloc]init]];
     _navigation.delegate = self;
-    _navigation.navigationBarHidden = YES;
+//    _navigation.navigationBarHidden = YES;
     
     CGRect frame = self.view.bounds;
     if (!isIOS7) {
@@ -173,8 +173,9 @@
         };
         [self.view addSubview:_musicInfoVC.view];
         [_playBar addGestureRecognizer:[[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(dragPlayBarImage:)]];
-    }else{}
+    }else{
     
+    }
 }
 - (void)hiddePlayInfoView
 {
@@ -189,24 +190,15 @@
 - (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated
 {
     UIViewController *root = navigationController.viewControllers[0];
-
+    if (isIOS7) {
+        viewController.edgesForExtendedLayout = UIRectEdgeNone;
+        viewController.extendedLayoutIncludesOpaqueBars = NO;
+        viewController.modalPresentationCapturesStatusBarAppearance = NO;
+    }
     if (viewController != root) {
         
-        // 1.添加左边的返回键
-        
-        if (isIOS7) {
-            
-            UIButton * backButton = [UIButton buttonWithType:UIButtonTypeCustom];
-            backButton.frame = CGRectMake(0, topDistance, 50, 51);
-            backButton.imageEdgeInsets = UIEdgeInsetsMake(-5, 0, 5, 0);
-            backButton.backgroundColor = [UIColor clearColor];
-            [backButton addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
-            [backButton setImage:[UIImage imageNamed:@"nav_back"] forState:UIControlStateNormal];
-            [viewController.view addSubview:backButton];
-            
-        }else{
-            viewController.navigationItem.leftBarButtonItem = [UIBarButtonItem itemWithTarget:self action:@selector(back) name:@"nav_back"];
-        }
+        viewController.navigationItem.leftBarButtonItem = [UIBarButtonItem itemWithTarget:self action:@selector(back) name:@"nav_back"];
+
         if ([_navigation.topViewController isKindOfClass:NSClassFromString(@"AboutViewController")]){
             _playBar.hidden = YES;
         }else{
