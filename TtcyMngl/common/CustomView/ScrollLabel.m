@@ -55,6 +55,10 @@
     [self updateFrames];
     [self startAnimationIfNeeded];
 }
+-(void)setTextColor:(UIColor *)textColor
+{
+    _textLabel.textColor = textColor;
+}
 -(void)setFont:(UIFont *)font
 {
     _textLabel.font = font;

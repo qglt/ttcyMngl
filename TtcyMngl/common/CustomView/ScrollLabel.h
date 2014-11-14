@@ -20,6 +20,8 @@ typedef enum {
 
 @property (nonatomic,strong,setter=setText:)NSString * text;
 
+@property (nonatomic,strong,setter=setTextColor:)UIColor * textColor;
+
 @property (nonatomic,assign,setter=setTextAlignment:)Alignment textAlignment;
 
 @end

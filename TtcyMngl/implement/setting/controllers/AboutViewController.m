@@ -72,7 +72,7 @@
 
 - (void)createContent
 {
-    self.scrolContent = [[UIScrollView alloc]initWithFrame:CGRectMake(40, 20, kMainScreenWidth-40, kMainScreenHeight-PlayBarHeight-40)];
+    self.scrolContent = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, kMainScreenWidth, kMainScreenHeight-PlayBarHeight)];
     _scrolContent.backgroundColor = [UIColor clearColor];
     _scrolContent.showsHorizontalScrollIndicator = NO;
 #warning 此处需要优化

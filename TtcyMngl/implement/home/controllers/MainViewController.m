@@ -195,6 +195,11 @@
         viewController.extendedLayoutIncludesOpaqueBars = NO;
         viewController.modalPresentationCapturesStatusBarAppearance = NO;
     }
+    if ([viewController isKindOfClass:NSClassFromString(@"LocalMainViewController")]) {
+        navigationController.navigationBarHidden = YES;
+    }else{
+        navigationController.navigationBarHidden = NO;
+    }
     if (viewController != root) {
         
         viewController.navigationItem.leftBarButtonItem = [UIBarButtonItem itemWithTarget:self action:@selector(back) name:@"nav_back"];
@@ -206,7 +211,7 @@
         }
     }else{
         _playBar.hidden = NO;
-    }
+    } 
 }
 - (void)back
 {

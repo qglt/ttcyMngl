@@ -12,8 +12,9 @@
 
 #define COLLECT_SONG 100
 #define SHARE_SONG   101
-#define PLAY_MODE   102
-#define TAG_HIDDE   103
+#define PLAY_MODE    102
+#define TAG_HIDDE    103
+#define TAG_DOWNLOAD 104
 
 @interface MusicOperationPanel()
 
@@ -44,7 +45,7 @@
         [self createCollectButton];
         [self createShareButton];
         [self createPlayModeButton];
-        [self createHiddeButton];
+        [self createDownloadButton];
     }
     return self;
 }
@@ -151,21 +152,21 @@
     [self addSubview:Proiv];
 }
 #pragma mark - 初始化——————扩展操作 buttons －－－－－－－－－－－－－－－－
-- (void)createHiddeButton
+- (void)createDownloadButton
 {
-    UIButton * hidde = [UIButton buttonWithType:UIButtonTypeCustom];
-    hidde.frame = CGRectMake(0, 0, PlayBarHeight/2.f, PlayBarHeight/2.f);
+    UIButton * down = [UIButton buttonWithType:UIButtonTypeCustom];
     
-    hidde.backgroundColor = [UIColor clearColor];
-    hidde.center = CGPointMake(self.bounds.size.width*7.2/8.f, self.frame.size.height*3.f/4.0f);
+    down.frame = CGRectMake( 0,0,25.f,25.f);
     
-    hidde.tag = TAG_HIDDE;
-    [hidde addTarget:self action:@selector(buttonAction:) forControlEvents:UIControlEventTouchUpInside];
-    [hidde setShowsTouchWhenHighlighted:YES];
+    down.backgroundColor = [UIColor clearColor];
+    down.center = CGPointMake(self.bounds.size.width*7.2/8.f, self.frame.size.height*3/4.0f);
+    down.tag = TAG_DOWNLOAD;
+    [down addTarget:self action:@selector(buttonAction:) forControlEvents:UIControlEventTouchUpInside];
+    [down setShowsTouchWhenHighlighted:YES];
     
-    [hidde setImage:[UIImage imageNamed:@"hidde_bar"] forState:UIControlStateNormal];
+    [down setBackgroundImage:[UIImage imageNamed:@"down"] forState:UIControlStateNormal];
     
-    [self addSubview:hidde];
+    [self addSubview:down];
 }
 - (void)createCollectButton
 {
@@ -204,7 +205,7 @@
     mode.frame = CGRectMake(0, 0, 80, 80);
     
     mode.backgroundColor = [UIColor clearColor];
-    mode.center = CGPointMake(self.bounds.size.width*0.8/8.f, self.frame.size.height*3/4.0f);
+    mode.center = CGPointMake(self.bounds.size.width*0.8/8.f, self.frame.size.height*3/4.0f+4);
     mode.tag = PLAY_MODE;
     [mode addTarget:self action:@selector(buttonAction:) forControlEvents:UIControlEventTouchUpInside];
     [mode setShowsTouchWhenHighlighted:YES];
@@ -277,6 +278,10 @@
         case TAG_HIDDE:
         {
             [self.delegate operationPanelHiddeButtonPressed];
+        }break;
+        case TAG_DOWNLOAD:
+        {
+            [self.delegate operationPanelDownloadButtonPressed];
         }break;
         default:
             break;

@@ -89,9 +89,9 @@ NSString * const HUDDismissNotification = @"HUDDismissNotification";
 {
     UINavigationBar * bar = [UINavigationBar appearance];
     if (isIOS7) {
-        [bar setBackgroundImage:[UIImage imageNamed:@"iOS7_NVB_BG"] forBarMetrics:UIBarMetricsDefault];
+        [bar setBackgroundImage:[UIImage imageNamed:@"true_nvb_bg"] forBarMetrics:UIBarMetricsDefault];
     }else{
-        [bar setBackgroundImage:[UIImage imageNamed:@"iOS6_NVB_BG"] forBarMetrics:UIBarMetricsDefault];
+        [bar setBackgroundImage:[UIImage imageNamed:@"true_nvb_bg_ios6"] forBarMetrics:UIBarMetricsDefault];
     }
 }
 -(void) onReq:(BaseReq*)req

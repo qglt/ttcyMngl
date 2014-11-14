@@ -87,7 +87,7 @@ typedef enum{
 #pragma mark - buttons ------------------------------
 - (void)createHeadImage
 {
-    self.headImage = [self createButtonWithTitle:@"" image:@"touxiang.png" tag:TAG_HEAD];
+    self.headImage = [self createButtonWithTitle:@"" image:@"main_logo" tag:TAG_HEAD];
     _headImage.frame = CGRectMake(0, 0, 80, 80);
     _headImage.center = CGPointMake(self.bounds.size.width/2.0f, self.bounds.size.height/2.0f);
     _headImage.layer.cornerRadius = _headImage.frame.size.width/2.0f;

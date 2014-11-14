@@ -19,6 +19,7 @@
 @interface PlayQueueListViewController ()<UITableViewDelegate,UITableViewDataSource,SongInfoListCellDelegate>
 {
     NSInteger playingSongIndex;
+    BOOL deleteOperation;
 }
 @property (nonatomic,strong)NSMutableArray * listData;
 
@@ -73,6 +74,7 @@
     }
     getTopDistance();
     getPlayBarHeight();
+    deleteOperation = NO;
 }
 -(void)createTable
 {
@@ -115,10 +117,9 @@
             }break;
             case 2:
             {
-                [SongOprationManager operation:unSafe song:main.listData[[main getcurrntIndex]] withQueue:QueueTypeHistory callBack:^(BOOL isOK) {
-                    
-                }];
+                [[PlayBar defultPlayer]delelteQueueWithItem:main.listData[[main getcurrntIndex]]];
                 [main reloadSourceData];
+                deleteOperation = YES;
                 [main.dataTabel reloadData];
                 
             }break;
@@ -129,6 +130,7 @@
         [main operationPanelShow:NO];
     };
     _moreOperationPanel.alpha = 0;
+    
     [self.view addSubview:_moreOperationPanel];
 }
 - (NSInteger)getcurrntIndex
@@ -188,13 +190,20 @@
         
     }else{
         AccountManager * manager = [AccountManager shareInstance];
+        if (deleteOperation) {
+            if (_currentOperationIndex.row < playingSongIndex) {
+                playingSongIndex --;
+            }
+        }
         if (indexPath.row == playingSongIndex) {
             cell.fontColor = [Utils colorWithHexString:@"#362875"];
+            cell.backgroundColor = [UIColor colorWithWhite:0 alpha:.3f];
         } else {
             cell.fontColor = [Utils colorWithHexString:@"#762836"];
         }
         [cell setUpCellWithSOngObject:_listData[indexPath.row] collected:[SongOprationManager checkCollectedSong:_listData[indexPath.row] withUser:manager.currentAccount.phone]];
     }
+    deleteOperation = NO;
     return cell;
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -226,9 +235,9 @@
     
     playingSongIndex = lineNumber;
     
-    if (playingSongIndex>=1) {
+    if (playingSongIndex>=2) {
         [UIView animateWithDuration:0.3f animations:^{
-            _dataTabel.contentOffset = CGPointMake(0, (playingSongIndex-1)*_dataTabel.rowHeight);
+            _dataTabel.contentOffset = CGPointMake(0, (playingSongIndex-2)*_dataTabel.rowHeight);
         }];
     }else{
         _dataTabel.contentOffset = CGPointMake(0, 0);

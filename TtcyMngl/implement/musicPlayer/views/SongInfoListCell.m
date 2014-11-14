@@ -73,7 +73,7 @@
     _headImage.backgroundColor = [UIColor clearColor];
     _headImage.transform = CGAffineTransformMakeRotation(-M_PI_2);
     [_headImage setTranslatesAutoresizingMaskIntoConstraints:NO];
-    _headImage.layer.cornerRadius = 5.0;
+    _headImage.layer.cornerRadius = (_height-10)/2.f;
     _headImage.layer.masksToBounds = YES;
     [self.contentView addSubview:_headImage];
     

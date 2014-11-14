@@ -75,7 +75,6 @@ PlayBar * instence = nil;
         
         [self createPlayButton];
         
-//        [self createProgressView];
         
         [self getPlayQueueData];
         
@@ -108,6 +107,13 @@ PlayBar * instence = nil;
     if (_queueSongArray.count != 0) {
         [self setPlayerData:currentIndex];
     }
+}
+- (void)refreshQueueData
+{
+    if (_queueSongArray.count != 0) {
+        [_queueSongArray removeAllObjects];
+    }
+    self.queueSongArray = [SongOprationManager hisPlayArray];
 }
 -(void)getCurrentPlayIndex
 {
@@ -428,7 +434,7 @@ PlayBar * instence = nil;
     int i = [self checkQueueEncomPassingAsong:obj];
     if ( i!= -1) {
         [SongOprationManager operation:unSafe song:obj withQueue:QueueTypeHistory callBack:^(BOOL isOK) {
-            [self getPlayQueueData];
+            [self refreshQueueData];
         }];
         autoPlay = NO;
         if (_queueSongArray.count == 0) {
@@ -440,7 +446,6 @@ PlayBar * instence = nil;
             }
         }
     }
-    [self getPlayQueueData];
 }
 -(void)setPlayerData:(int)index
 {

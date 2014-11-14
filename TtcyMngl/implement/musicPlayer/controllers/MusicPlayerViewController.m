@@ -100,10 +100,10 @@
     UIView * view = [[UIView alloc]init];
     if (isIOS7) {
         view.frame = CGRectMake(0, 0, kMainScreenWidth, 64);
-        view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"iOS7_NVB_BG"]];
+        view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"true_nvb_bg"]];
     }else{
         view.frame = CGRectMake(0, 0, kMainScreenWidth, 44);
-        view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"iOS6_NVB_BG"]];
+        view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"true_nvb_bg_ios6"]];
     }
     UIView * line = [[UIView alloc]initWithFrame:CGRectMake(0, view.bounds.size.height-.5f, kMainScreenWidth, .5f)];
     line.backgroundColor = [UIColor colorWithWhite:0 alpha:.5f];
@@ -286,13 +286,13 @@
 -(void)createPageControl
 {
     self.pageControl=[[QTPageControl alloc]initWithFrame:CGRectMake(5, 80, 10, kMainScreenHeight-PlayBarHeight*2-120-64) itemCount:2];
-    _pageControl.center = CGPointMake(20, (kMainScreenHeight - PlayBarHeight*2)/2.f+10);
+    _pageControl.center = CGPointMake(20, (kMainScreenHeight - PlayBarHeight*2)/2.f+40);
     __unsafe_unretained MusicPlayerViewController * main = self;
     _pageControl.pageItemClick =^(NSInteger index){
         [main.pageControl setSelectedIndex:index];
         [main pageTurn:index];
     };
-    _pageControl.pageItemClick(1);
+    _pageControl.pageItemClick(0);
     [self.view addSubview:_pageControl];
 }
 -(void)createLrcTableView
@@ -318,14 +318,14 @@
         y = 64;
     }
     _listVC.view.frame = CGRectMake(0, y, kMainScreenWidth, kMainScreenHeight - y + topDistance);
-    _listVC.view.backgroundColor = [UIColor colorWithWhite:0 alpha:.3f];
+    _listVC.view.backgroundColor = CENT_COLOR;
     [self addChildViewController:_listVC];
     [self.view addSubview:_listVC.view];
     _listVC.view.alpha  = 0;
 }
 -(void)createSeparatorLine
 {
-    UIView * line = [[UIView alloc]initWithFrame:CGRectMake(40, 64, .3f, kMainScreenHeight-PlayBarHeight*2-64)];
+    UIView * line = [[UIView alloc]initWithFrame:CGRectMake(40, 64, .3f, kMainScreenHeight-PlayBarHeight*2-64+topDistance)];
     line.backgroundColor = [Utils colorWithHexString:@"#04DDFF"];
     [self.view addSubview:line];
 }
@@ -385,6 +385,7 @@
     }
     count ++;
     [_operationPanel refreshSliderWithProgress:time duration:duration];
+    
 }
 -(void)changeCurrentPlayingSong:(SongObject *)song
 {
@@ -401,6 +402,7 @@
 -(void)playerStatusChanged:(int)status
 {
     [_operationPanel setPlayState:status];
+    [_infoView setAnimate:status];
 }
 
 #pragma mark - UIScrollViewDelegate methods
@@ -438,9 +440,11 @@
 {
     [SongOprationManager shareSong:[[PlayBar defultPlayer] getCurrentPlayingSong]];
 }
--(void)operationPanelHiddeButtonPressed
+-(void)operationPanelDownloadButtonPressed
 {
-    [self hiddeSelf];
+    [SongOprationManager download:safe Song:[[PlayBar defultPlayer] getCurrentPlayingSong] callBack:^(BOOL isOK) {
+        
+    }];
 }
 -(void)operationPanelSliderValueChanged:(float)value
 {

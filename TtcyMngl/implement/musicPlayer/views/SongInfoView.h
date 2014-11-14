@@ -26,4 +26,6 @@
 
 -(void)refreshData:(SongObject *)song;
 
+- (void)setAnimate:(BOOL)animate;
+
 @end

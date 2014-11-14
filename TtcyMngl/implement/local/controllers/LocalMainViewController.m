@@ -250,6 +250,7 @@
 - (void)loginFailure:(NSDictionary*) data
 {
     [HUD message:[data objectForKey:@"MSG"]];
+    
 }
 #pragma mark - -- regist ------------------------
 - (void)regist:(NSString *)userName pwd:(NSString *)pwd
@@ -264,6 +265,10 @@
 -(void)registSucess
 {
     [HUD message:@"         "];
+    [self performSelector:@selector(login) withObject:nil afterDelay:1.5f];
+}
+- (void)login
+{
     [self login:_userID pwd:_pass savepwd:NO];
 }
 - (void)registFailure:(NSDictionary *)data

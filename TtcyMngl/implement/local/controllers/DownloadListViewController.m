@@ -89,7 +89,11 @@ SINGLETON_IMPLEMENT(DownloadListViewController)
     _dataTable.dataSource = self;
     _dataTable.showsVerticalScrollIndicator = NO;
     _dataTable.transform = CGAffineTransformMakeRotation(-M_PI_2);
-    _dataTable.frame = CGRectMake(40, 20, kMainScreenWidth-40, kMainScreenHeight- PlayBarHeight);
+    CGFloat y = 44;
+    if (isIOS7) {
+        y = 64;
+    }
+    _dataTable.frame = CGRectMake(0, 0, kMainScreenWidth, kMainScreenHeight+topDistance-y-PlayBarHeight);
     [self.view addSubview:_dataTable];
 }
 - (void)didReceiveMemoryWarning

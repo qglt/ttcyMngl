@@ -77,7 +77,6 @@
     NSString* sql = [NSString stringWithFormat:@"DELETE FROM %@ WHERE songUrl = ?",TABLE_HistoryPlay];
     if ([_db executeUpdate:sql,songUrl]) {
         NSLog(@"delete history play song successed");
-        [self deleteSongFromDBBySongUrl:songUrl];
     }
     else{
         NSLog(@"delete history play song failed");

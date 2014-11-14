@@ -100,13 +100,13 @@
 
 - (void)showCustomIntro {
     
-    NSString * image1 = @"IMG_4210.PNG";
-    NSString * image2 = @"IMG_4213.PNG";
-    NSString * image3 = @"IMG_4209.PNG";
+    NSString * image1 = @"IMG_4361.PNG";
+    NSString * image2 = @"IMG_4363.PNG";
+    NSString * image3 = @"IMG_4362.PNG";
     if (is4Inch) {
-        image1 = @"IMG_0233.PNG";
-        image2 = @"IMG_0238.PNG";
-        image3 = @"IMG_0232.PNG";
+        image1 = @"IMG_0593.PNG";
+        image2 = @"IMG_0596.PNG";
+        image3 = @"IMG_0595.PNG";
     }
     CustomPage * cp1 = [[CustomPage alloc]initWithImage:image1 title:@"    " detail:@"    "];
     

@@ -68,12 +68,12 @@
     
     self.adView = [[OnlineAvd alloc]initWithFrame:CGRectMake(0, 0, kMainScreenWidth, 140) items:items placeHolders:holders];
     _adView.delegate = self;
-    _adView.backgroundColor = [UIColor redColor];
+    _adView.backgroundColor = [Utils colorWithHexString:@"#1B98DA"];
     [self.view addSubview:_adView];
 }
 - (void)createPageControl
 {
-    self.pageControl = [[UIPageControl alloc]initWithFrame:CGRectMake(self.view.center.x-5, 140, 30, 10)];
+    self.pageControl = [[UIPageControl alloc]initWithFrame:CGRectMake(self.view.center.x-5, 130, 30, 10)];
     _pageControl.backgroundColor = [UIColor clearColor];
     _pageControl.numberOfPages = 2;
     _pageControl.currentPage = 0;

@@ -55,6 +55,7 @@
         self.modalPresentationCapturesStatusBarAppearance = NO;
     }
     getPlayBarHeight()
+    getTopDistance()
 }
 -(void)createBaseTableView
 {
@@ -66,7 +67,11 @@
     _baseTableView.dataSource = self;
     _baseTableView.showsVerticalScrollIndicator = NO;
     _baseTableView.transform = CGAffineTransformMakeRotation(-M_PI_2);
-    _baseTableView.frame = CGRectMake(40, 20, kMainScreenWidth-40,  kMainScreenHeight-PlayBarHeight);
+    CGFloat y = 44;
+    if (isIOS7) {
+        y = 64;
+    }
+    _baseTableView.frame = CGRectMake(0, 0, kMainScreenWidth, kMainScreenHeight+topDistance-y-PlayBarHeight);
     [self.view addSubview:_baseTableView];
 }
 - (void)createMoreOperationPanel

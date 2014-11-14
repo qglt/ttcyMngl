@@ -14,6 +14,7 @@
 - (void)operationPanelSahareButtonPressed;
 - (void)operationPanelPlayModeButtonPressed;
 - (void)operationPanelHiddeButtonPressed;
+- (void)operationPanelDownloadButtonPressed;
 - (void)operationPanelSliderValueChanged:(float)value;
 
 @end
