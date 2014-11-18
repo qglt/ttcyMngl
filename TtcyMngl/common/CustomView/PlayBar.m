@@ -75,10 +75,11 @@ PlayBar * instence = nil;
         
         [self createPlayButton];
         
-        
         [self getPlayQueueData];
         
         [self setupTimer];
+        
+        [self resumeOrPause];
     }
     return self;
 }
@@ -444,6 +445,9 @@ PlayBar * instence = nil;
                 currentIndex --;
                 [self playNextMusic];
             }
+            if (i <currentIndex){
+                currentIndex -- ;
+            }
         }
     }
 }
@@ -488,6 +492,7 @@ PlayBar * instence = nil;
 {
     [self changeHeadImage];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"didStartPlaying" object:_queueSongArray[currentIndex]];
+    [@{@"index":[NSNumber numberWithInt:currentIndex]} writeToFile:[[NSBundle mainBundle] pathForResource:@"history_play_index" ofType:@"plist"] atomically:YES];
 }
 
 -(void) audioPlayer:(STKAudioPlayer*)audioPlayer didFinishBufferingSourceWithQueueItemId:(NSObject*)queueItemId

@@ -59,7 +59,7 @@
 }
 
 -(void)celebrityWithModel:(SongObject *)model{
-    
+    model.songName = [model.songName stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     _lblName.text=model.songName;
   
 }

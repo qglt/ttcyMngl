@@ -54,16 +54,17 @@
 }
 -(void)createEmptyLabel
 {
-    NSString * str = @"ᠳᠠᠭᠣᠣ ᠢᠨ ᠥᠭᠡ ᠬᠣᠭᠣᠰᠣᠨ";
-    CGSize size = [str sizeWithFont:[UIFont fontWithName:@"Mongolian Art" size:17.0f] constrainedToSize:CGSizeMake(kMainScreenWidth - 40,30) lineBreakMode:NSLineBreakByWordWrapping];
+    NSString * str = @"  \n  \n   ";
     
-    self.emptyLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, size.width, size.height)];
+    self.emptyLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 120, 100)];
     
     _emptyLabel.backgroundColor = [UIColor clearColor];
-    _emptyLabel.center = CGPointMake(self.bounds.size.width/2.0f, self.bounds.size.height/2.5f);
+    _emptyLabel.center = CGPointMake(self.bounds.size.width/2.0f-10, self.bounds.size.height/2.5f);
     _emptyLabel.text = str;
     _emptyLabel.textColor = [Utils colorWithHexString:@"#22C5DF"];
-    _emptyLabel.font = [UIFont fontWithName:@"Mongolian Art" size:17.0f];
+    _emptyLabel.font = [UIFont fontWithName:@"Menksoft Qagan" size:17.0f];
+    _emptyLabel.lineBreakMode = NSLineBreakByWordWrapping;
+    _emptyLabel.numberOfLines = 0;
     [self addSubview:_emptyLabel];
     _emptyLabel.hidden = YES;
     _emptyLabel.transform = CGAffineTransformMakeRotation(M_PI_2);

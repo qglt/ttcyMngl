@@ -34,9 +34,9 @@
     UILabel *sideLabel=[[UILabel alloc]initWithFrame:CGRectMake(navigationWhile,0, 0.4 , frame.size.height)];
     sideLabel.backgroundColor=[Utils colorWithHexString:@"#04DDFF"];
     [self addSubview:sideLabel];
+    getTopDistance()
     
-    
-    UIScrollView *navigationScrollView=[[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, navigationWhile, kMainScreenHeight-44-PlayBarHeight*2/3.f)];
+    UIScrollView *navigationScrollView=[[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, navigationWhile, kMainScreenHeight-84-PlayBarHeight*2/3.f+topDistance)];
     navigationScrollView.tag=92;
     navigationScrollView.showsVerticalScrollIndicator = FALSE;
     navigationScrollView.showsHorizontalScrollIndicator = FALSE;

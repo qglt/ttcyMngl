@@ -162,7 +162,7 @@
     }
     
     _artLabel.text = [@": " stringByAppendingString:_currentSong.artist];
-    _songLabel.text = [NSString stringWithFormat:@"%@ —— %@",_currentSong.songName,_currentSong.artist];
+    _songLabel.text = [NSString stringWithFormat:@"%@  %@",_currentSong.songName,_currentSong.artist];
     if (![Utils isEmptyString:_currentSong.albumTitle]) {
         _albumLabel.text = [@": " stringByAppendingString:_currentSong.albumTitle];
         _artLabel.center = CGPointMake(_artImage.frame.origin.x + _artLabel.frame.size.width/2.0f, _artImage.frame.origin.y + _artImage.frame.size.height + 20 + _artLabel.frame.size.height/2.0f);

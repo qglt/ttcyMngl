@@ -68,8 +68,8 @@
 }
 #pragma mark 添加右侧导航
 -(void)addNavigationView{
-    
-    OnlineCelebritView *onlineCelebritView=[[OnlineCelebritView  alloc] initWithFrame:CGRectMake(0, 0, navigationWhile, kMainScreenHeight-20-PlayBarHeight*2/3.f+topDistance)];
+    getTopDistance()
+    OnlineCelebritView *onlineCelebritView=[[OnlineCelebritView  alloc] initWithFrame:CGRectMake(0, 0, navigationWhile, kMainScreenHeight-64-PlayBarHeight*2/3.f+topDistance)];
     
     onlineCelebritView.delegate=self;
     

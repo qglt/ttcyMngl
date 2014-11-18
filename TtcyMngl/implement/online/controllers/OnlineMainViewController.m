@@ -70,6 +70,18 @@
     _adView.delegate = self;
     _adView.backgroundColor = [Utils colorWithHexString:@"#1B98DA"];
     [self.view addSubview:_adView];
+    
+    NSTimer *timer = [NSTimer timerWithTimeInterval:5 target:self selector:@selector(updateAvd) userInfo:nil repeats:YES];
+    [[NSRunLoop currentRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
+}
+- (void)updateAvd
+{
+    static int i = 0;
+    i++;
+    i%=2;
+    [UIView animateWithDuration:.5 animations:^{
+        _adView.contentOffset = CGPointMake(i*kMainScreenWidth, -20);
+    }];
 }
 - (void)createPageControl
 {

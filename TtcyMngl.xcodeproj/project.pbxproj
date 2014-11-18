@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0409BD4219594B27002C20D3 /* SongInfoListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0409BD4119594B27002C20D3 /* SongInfoListCell.m */; };
+		040B0CFA1A19F53C00EBE754 /* about_company.png in Resources */ = {isa = PBXBuildFile; fileRef = 040B0CF91A19F53C00EBE754 /* about_company.png */; };
 		040CFEA219551AB200D81282 /* MnglSongCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 040CFE9F19551AB200D81282 /* MnglSongCell.m */; };
 		040CFEA319551AB200D81282 /* SongLrcTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 040CFEA119551AB200D81282 /* SongLrcTableView.m */; };
 		040CFEA619551B4B00D81282 /* SongOprationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 040CFEA519551B4B00D81282 /* SongOprationBar.m */; };
@@ -356,6 +357,7 @@
 /* Begin PBXFileReference section */
 		0409BD4019594B27002C20D3 /* SongInfoListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SongInfoListCell.h; sourceTree = "<group>"; };
 		0409BD4119594B27002C20D3 /* SongInfoListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SongInfoListCell.m; sourceTree = "<group>"; };
+		040B0CF91A19F53C00EBE754 /* about_company.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = about_company.png; sourceTree = "<group>"; };
 		040CFE9E19551AB200D81282 /* MnglSongCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MnglSongCell.h; sourceTree = "<group>"; };
 		040CFE9F19551AB200D81282 /* MnglSongCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MnglSongCell.m; sourceTree = "<group>"; };
 		040CFEA019551AB200D81282 /* SongLrcTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SongLrcTableView.h; sourceTree = "<group>"; };
@@ -1154,6 +1156,7 @@
 		04EE15CA1981072C00B0CA87 /* defaults */ = {
 			isa = PBXGroup;
 			children = (
+				040B0CF91A19F53C00EBE754 /* about_company.png */,
 				041315C31A14863900A8E4A2 /* IMG_4361.PNG */,
 				041315C41A14863900A8E4A2 /* IMG_4362.PNG */,
 				041315C51A14863900A8E4A2 /* IMG_4363.PNG */,
@@ -1946,6 +1949,7 @@
 				04EE16AD1981072D00B0CA87 /* recommend_btn.png in Resources */,
 				041315841A14353D00A8E4A2 /* true_nvb_bg.png in Resources */,
 				04EE16B61981072D00B0CA87 /* set_icon_about@2x.png in Resources */,
+				040B0CFA1A19F53C00EBE754 /* about_company.png in Resources */,
 				0413156D1A13485E00A8E4A2 /* playinfo_headBG.png in Resources */,
 				0419AE7319D299A600F57B58 /* item_tag@2x.png in Resources */,
 				04EE167F1981072D00B0CA87 /* cancel_btn_h@2x.png in Resources */,

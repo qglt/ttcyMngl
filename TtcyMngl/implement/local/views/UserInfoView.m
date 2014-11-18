@@ -103,7 +103,7 @@ typedef enum{
 }
 - (void)createRegisterButton
 {
-    self.registButton = [self createButtonWithTitle:@" " image:@"" tag:TAG_REGIST];
+    self.registButton = [self createButtonWithTitle:@" " image:@"" tag:TAG_REGIST];
     _registButton.transform = CGAffineTransformMakeRotation(M_PI_2);
     _registButton.frame = CGRectMake(0, 0, 100, 100);
     _registButton.center = CGPointMake(self.bounds.size.width*1/5.f, self.bounds.size.height/2.0f);

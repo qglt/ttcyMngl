@@ -60,7 +60,7 @@
         }
     }
     UIImageView * v = [[UIImageView alloc]init];
-    v.image = [Utils createImageWithColor:[Utils colorWithHexString:@"#66cc99"]];
+    v.image = [Utils createImageWithColor:NVC_SELECTED_BACKGROUND];
     self.selectedBackgroundView = v;
     
     self.backgroundColor = [UIColor clearColor];

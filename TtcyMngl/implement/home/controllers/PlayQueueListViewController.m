@@ -196,10 +196,10 @@
             }
         }
         if (indexPath.row == playingSongIndex) {
-            cell.fontColor = [Utils colorWithHexString:@"#362875"];
+//            cell.fontColor = [Utils colorWithHexString:@"#362875"];
             cell.backgroundColor = [UIColor colorWithWhite:0 alpha:.3f];
         } else {
-            cell.fontColor = [Utils colorWithHexString:@"#762836"];
+//            cell.fontColor = [Utils colorWithHexString:@"#762836"];
         }
         [cell setUpCellWithSOngObject:_listData[indexPath.row] collected:[SongOprationManager checkCollectedSong:_listData[indexPath.row] withUser:manager.currentAccount.phone]];
     }

@@ -81,7 +81,7 @@
             break;
         case DownloadFinished:
         {
-            stateDescription=@"";
+            stateDescription=@"";
         }
             break;
         case DownloadNotStart:

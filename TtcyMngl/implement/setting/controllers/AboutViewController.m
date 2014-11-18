@@ -72,14 +72,16 @@
 
 - (void)createContent
 {
-    self.scrolContent = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, kMainScreenWidth, kMainScreenHeight-PlayBarHeight)];
+    self.scrolContent = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, kMainScreenWidth, 510)];
     _scrolContent.backgroundColor = [UIColor clearColor];
     _scrolContent.showsHorizontalScrollIndicator = NO;
 #warning 此处需要优化
-    _scrolContent.contentSize = CGSizeMake(1533, 0);
-    [self loadSHLLabel];
+    _scrolContent.contentSize = CGSizeMake(1101, 0);
+//    [self loadSHLLabel];
     [self.view addSubview:_scrolContent];
-    
+    UIImageView * imageV = [[UIImageView alloc]initWithFrame:CGRectMake(10, 20, 1000, 450)];
+    imageV.image = [UIImage imageNamed:@"about_company.png"];
+    [_scrolContent addSubview:imageV];
 }
 - (void) loadSHLLabel {
     
