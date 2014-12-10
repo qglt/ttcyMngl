@@ -56,7 +56,7 @@
 
 -(void)AlbumWithModel:(Album *)model{
     if (model.photoURL!=nil) {
-        UIImageView *image=[[UIImageView alloc]initWithFrame:CGRectMake(6, 6, 50, 50)];
+        UIImageView *image=[[UIImageView alloc]initWithFrame:CGRectMake(20, 6, 50, 50)];
         [image setImageWithURL:[NSURL URLWithString:model.photoURL] placeholderImage:[UIImage imageNamed:@"face.jpg"]];
         image.layer.cornerRadius = 25.f;
         image.layer.masksToBounds = YES;

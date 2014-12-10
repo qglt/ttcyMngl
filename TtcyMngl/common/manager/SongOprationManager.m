@@ -27,7 +27,7 @@ NSMutableArray * collectArray;
         if (type == safe) {
             [[FMDBManager defaultManager] addCollectSong:song userID:aManager.currentAccount.phone callBack:^(BOOL isOK) {
                 if (isOK) {
-                    [HUD message:@"    "];
+                    [HUD message:@"    "];
                 }else{
                     [HUD message:@"    "];
                 }
@@ -36,7 +36,7 @@ NSMutableArray * collectArray;
         }else{
             [[FMDBManager defaultManager] deleteCollectSongBySongName:song.songUrl userID:aManager.currentAccount.phone callBack:^(BOOL isOK) {
                 if (isOK) {
-                    [HUD message:@"    "];
+                    [HUD message:@"    "];
                 }else{
                     [HUD message:@" "];
                 }
@@ -45,7 +45,7 @@ NSMutableArray * collectArray;
         }
         [[NSNotificationCenter defaultCenter]postNotificationName:NOTIFICATION_SONG_COLLECTED object:nil];
     }else{
-        [HUD message:@"  "];
+        [HUD message:@"  "];
     }
 }
 + (void)download:(operationType)type Song:(SongObject *)song callBack:(void (^)(BOOL))callBack
@@ -59,7 +59,7 @@ NSMutableArray * collectArray;
             
         }
     }else{
-        [HUD message:@"  "];
+        [HUD message:@"  "];
     }
 }
 +(void)clearQueue:(QueueType)queueType callBack:(void (^)(BOOL))callBack

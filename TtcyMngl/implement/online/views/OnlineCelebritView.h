@@ -15,10 +15,10 @@
 @end
 @interface OnlineCelebritView : UIView{
     int  _nonceType;
-    NSMutableArray *_models;
+    
 
 }
-
+@property (nonatomic,strong)NSMutableArray *models;
 
 -(id)addCelebritTypesViewViewTitle:(NSString *)viewTitle url:(NSString*)url;
 

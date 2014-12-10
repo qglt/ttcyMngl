@@ -160,11 +160,11 @@ SINGLETON_IMPLEMENT(AppDataManager)
 {
     
     NSDictionary *appInfo = [[NSBundle mainBundle] infoDictionary];
-    NSLog(@"appInfo = %@",appInfo);
+    
     NSString *currentVersion = [appInfo objectForKey:@"CFBundleVersion"];
     
     NSDictionary *dict = [[CJSONDeserializer deserializer] deserialize:[request responseData] error:nil];
-    NSLog(@"-----------------%@",dict);
+    
     NSArray *infoArray = [dict objectForKey:@"results"];
     
     if ([infoArray count]) {
@@ -172,11 +172,11 @@ SINGLETON_IMPLEMENT(AppDataManager)
         NSDictionary *releaseInfo = [infoArray objectAtIndex:0];
         NSString *lastVersion = [releaseInfo objectForKey:@"version"];
         
-        if ([lastVersion floatValue] >[currentVersion floatValue]) {
+        if (![lastVersion isEqualToString:currentVersion]) {
             
             newVersionURlString = [releaseInfo objectForKey:@"trackViewUrl"];
             NSLog(@"lastVersion = %@ currentVersion = %@ lastVersion trackViewUrl = %@",lastVersion,currentVersion,newVersionURlString);
-            [HUD message:@"    " delegate:self Tag:101];
+            [HUD message:@"    " delegate:self Tag:101];
             
         }else{
             [HUD message:@"     "];

@@ -93,6 +93,7 @@ NSString * const HUDDismissNotification = @"HUDDismissNotification";
     }else{
         [bar setBackgroundImage:[UIImage imageNamed:@"true_nvb_bg_ios6"] forBarMetrics:UIBarMetricsDefault];
     }
+    bar.shadowImage = [UIImage new];
 }
 -(void) onReq:(BaseReq*)req
 {

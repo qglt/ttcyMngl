@@ -248,7 +248,7 @@ PlayBar * instence = nil;
     }
 
     if (playState) {
-        _headImage.transform = CGAffineTransformRotate(_headImage.transform, M_PI*0.01/3.f);
+        _headImage.transform = CGAffineTransformRotate(_headImage.transform, M_PI*0.01/6.f);
     }
 }
 -(void)broadPlayerProgressTime

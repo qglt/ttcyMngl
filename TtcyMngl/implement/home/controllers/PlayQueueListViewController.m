@@ -97,7 +97,7 @@
 {
     MenuItem * item1 = [MenuItem itemWithIcon:@"" hightLightIcon:@"" title:@"" vcClass:@"share" andTag:0];
     MenuItem * item2 = [MenuItem itemWithIcon:@"" hightLightIcon:@"" title:@"" vcClass:@"down" andTag:1];
-    MenuItem * item3 = [MenuItem itemWithIcon:@"" hightLightIcon:@"" title:@"" vcClass:@"delete" andTag:2];
+    MenuItem * item3 = [MenuItem itemWithIcon:@"" hightLightIcon:@"" title:@"" vcClass:@"delete" andTag:2];
     
     self.moreOperationPanel = [[MoreOperationPanel alloc]initWithFrame:CGRectMake(0, 0 , 180.f, 150.f) andItems:@[item1,item2,item3]];
     _moreOperationPanel.center = self.view.center;

@@ -52,7 +52,7 @@
 
 -(void)celebrityWithModel:(Celebrity *)model{
     if (model.photoURL!=nil) {
-        UIImageView *image=[[UIImageView alloc]initWithFrame:CGRectMake(6, 6, 50, 50)];
+        UIImageView *image=[[UIImageView alloc]initWithFrame:CGRectMake(20, 6, 50, 50)];
         image.tag=1001;
         image.layer.cornerRadius = 25.f;
         image.layer.masksToBounds = YES;

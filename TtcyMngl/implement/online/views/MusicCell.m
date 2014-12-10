@@ -46,7 +46,7 @@
     
     selfCell.selectionStyle = UITableViewCellSelectionStyleNone;
     
-    UILabel *lblName=[[UILabel alloc]initWithFrame:CGRectMake(6, 13, CellH, 36)];
+    UILabel *lblName=[[UILabel alloc]initWithFrame:CGRectMake(16, 13, CellH, 36)];
     
     lblName.font=[CommonClass setTransformuiFont:lblName.font];
     [lblName setBackgroundColor:[UIColor clearColor]];
@@ -71,7 +71,7 @@
 -(void)setMusicWithModel:(SongObject *)model{
     
     if (model.avatarImageUrl!=nil) {
-        UIImageView *image=[[UIImageView alloc]initWithFrame:CGRectMake(6, 6, 50, 50)];
+        UIImageView *image=[[UIImageView alloc]initWithFrame:CGRectMake(20, 6, 50, 50)];
         image.tag=1001;
         image.layer.cornerRadius = 25.f;
         image.layer.masksToBounds = YES;

@@ -96,14 +96,14 @@ typedef enum{
 }
 - (void)createLoginButton
 {
-    self.loginButton = [self createButtonWithTitle:@" " image:@"" tag:TAG_LOGIN];
+    self.loginButton = [self createButtonWithTitle:@"" image:@"" tag:TAG_LOGIN];
     _loginButton.transform = CGAffineTransformMakeRotation(M_PI_2);
     _loginButton.frame = CGRectMake(0, 0, 100, 100);
     _loginButton.center = CGPointMake(self.bounds.size.width*4/5.f, self.bounds.size.height/2.0f);
 }
 - (void)createRegisterButton
 {
-    self.registButton = [self createButtonWithTitle:@" " image:@"" tag:TAG_REGIST];
+    self.registButton = [self createButtonWithTitle:@"" image:@"" tag:TAG_REGIST];
     _registButton.transform = CGAffineTransformMakeRotation(M_PI_2);
     _registButton.frame = CGRectMake(0, 0, 100, 100);
     _registButton.center = CGPointMake(self.bounds.size.width*1/5.f, self.bounds.size.height/2.0f);
@@ -137,7 +137,7 @@ typedef enum{
 }
 - (void)createCheckPassLabel
 {
-    self.checkPass = [self createLabelWithTitle:@"\n"];
+    self.checkPass = [self createLabelWithTitle:@"\n"];
 }
 - (void)createAccountNameLabel
 {
@@ -361,11 +361,11 @@ typedef enum{
         _headImage.frame = CGRectMake(0, 0, 60, 60);
         _headImage.layer.cornerRadius = _headImage.frame.size.width/2.f;
         
-        _headImage.center = CGPointMake(45, 95);
-        _namePromt.center = CGPointMake(100, 70);
-        _passPromt.center = CGPointMake(100, 115);
-        _userIDField.center = CGPointMake(200, 65);
-        _passField.center = CGPointMake(200, 110);
+        _headImage.center = CGPointMake(45, 105);
+        _namePromt.center = CGPointMake(100, 80);
+        _passPromt.center = CGPointMake(100, 130);
+        _userIDField.center = CGPointMake(200, 75);
+        _passField.center = CGPointMake(200, 125);
         _popAccountButton.center = CGPointMake(self.bounds.size.width/2.f, self.bounds.size.height/2.0f);
         _accNameLabel.center = CGPointMake(self.bounds.size.width/2.f, self.bounds.size.height/2.0f);
     }];
@@ -388,13 +388,13 @@ typedef enum{
         
         _headImage.center = CGPointMake(45, 95);
         
-        _namePromt.center = CGPointMake(100, 45);
-        _passPromt.center = CGPointMake(100, 85);
-        _checkPass.center = CGPointMake(100, 125);
+        _namePromt.center = CGPointMake(100, 70);
+        _passPromt.center = CGPointMake(100, 110);
+        _checkPass.center = CGPointMake(100, 150);
         
-        _userIDField.center = CGPointMake(200, 40);
-        _passField.center = CGPointMake(200, 80);
-        _conPassField.center = CGPointMake(200, 120);
+        _userIDField.center = CGPointMake(200, 65);
+        _passField.center = CGPointMake(200, 105);
+        _conPassField.center = CGPointMake(200, 145);
         _popAccountButton.center = CGPointMake(self.bounds.size.width/2.f, self.bounds.size.height/2.0f);
         _accNameLabel.center = CGPointMake(self.bounds.size.width/2.f, self.bounds.size.height/2.0f);
     }];
@@ -444,7 +444,7 @@ typedef enum{
         _headImage.frame = CGRectMake(0, 0, 80, 80);
         _headImage.layer.cornerRadius = _headImage.frame.size.width/2.f;
         
-        _popAccountButton.center = CGPointMake(300, self.bounds.size.height-25);
+        _popAccountButton.center = CGPointMake(290, self.bounds.size.height-25);
         _accNameLabel.center = CGPointMake(self.bounds.size.width/2.0f, self.bounds.size.height-20);
         
         _headImage.center = CGPointMake(self.bounds.size.width/2.f, self.bounds.size.height/2.0f);

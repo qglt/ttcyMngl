@@ -72,13 +72,13 @@
 #pragma mark - initlize -------------------
 - (void)createInfoBG
 {
-    UIView * view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kMainScreenWidth, 160)];
+    UIView * view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kMainScreenWidth, 200)];
     view.backgroundColor = [Utils colorWithHexString:@"#1B98DA"];
     [self.view addSubview:view];
 }
 - (void)createUserInfoView
 {
-    self.userInfoView = [[UserInfoView alloc]initWithFrame:CGRectMake(0, 0, kMainScreenWidth, 160)];
+    self.userInfoView = [[UserInfoView alloc]initWithFrame:CGRectMake(0, 0, kMainScreenWidth, 200)];
     _userInfoView.m_delegate = self;
     [self.view addSubview:_userInfoView];
     [self refreshUserInfoView];
@@ -89,7 +89,7 @@
     NSArray * iconArray = @[@"item_tag",@"item_tag",@"item_tag"];
     NSArray * classArray = @[@"CollectListViewController",@"DownloadListViewController",@"PlayRecordViewController"];
     
-    self.contentView = [[LocalCententView alloc]initWithFrame:CGRectMake(0, 160, kMainScreenWidth, kMainScreenHeight-160)
+    self.contentView = [[LocalCententView alloc]initWithFrame:CGRectMake(0, 200, kMainScreenWidth, kMainScreenHeight-160)
                                                        titles:titleArray
                                                         icons:iconArray
                                                       classes:classArray];
@@ -137,7 +137,7 @@
     MenuItem * item3 = [MenuItem itemWithIcon:@"delete" hightLightIcon:@"" title:@"" vcClass:@"cache" andTag:2];
     MenuItem * item4 = [MenuItem itemWithIcon:@"about" hightLightIcon:@"" title:@"  " vcClass:@"AboutViewController" andTag:3];
     
-    self.settingPanel = [[SettingPanel alloc]initWithFrame:CGRectMake(0, -160, kMainScreenWidth-40, 160) andItems:@[item1,item2,item3,item4]];
+    self.settingPanel = [[SettingPanel alloc]initWithFrame:CGRectMake(0, -200, kMainScreenWidth-40, 200) andItems:@[item1,item2,item3,item4]];
     _settingPanel.backgroundColor = [Utils colorWithHexString:@"#1B98DA"];
     __unsafe_unretained LocalMainViewController * main = self;
     _settingPanel.itemClick = ^(MenuItem * item){
@@ -203,11 +203,11 @@
     if (show) {
         alpha = 0;
         frame_s.origin.y = 0;
-        frame_u.origin.y = -160;
+        frame_u.origin.y = -200;
         [_userInfoView resetConstrains];
     }else{
         alpha = 1;
-        frame_s.origin.y = -160;
+        frame_s.origin.y = -200;
         frame_u.origin.y = 0;
         [self refreshUserInfoView];
     }

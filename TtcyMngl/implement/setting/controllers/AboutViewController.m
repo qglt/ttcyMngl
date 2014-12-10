@@ -39,6 +39,7 @@
 -(void)setBaseCondition
 {
     getPlayBarHeight();
+    getTopDistance();
     if (is4Inch) {
         self.view.backgroundColor = CENT_COLOR_4INCH;
     }else{
@@ -72,15 +73,21 @@
 
 - (void)createContent
 {
-    self.scrolContent = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, kMainScreenWidth, 510)];
+    NSString * imageName = @"about_company";
+    CGFloat imageW = 2545-760;
+    if (is4Inch) {
+        imageName = @"about_company_4inch.png";
+        imageW = 2231-760;
+    }
+    self.scrolContent = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, kMainScreenWidth, kMainScreenHeight-44-topDistance)];
     _scrolContent.backgroundColor = [UIColor clearColor];
     _scrolContent.showsHorizontalScrollIndicator = NO;
-#warning 此处需要优化
-    _scrolContent.contentSize = CGSizeMake(1101, 0);
-//    [self loadSHLLabel];
+    _scrolContent.contentSize = CGSizeMake(imageW, 0);
     [self.view addSubview:_scrolContent];
-    UIImageView * imageV = [[UIImageView alloc]initWithFrame:CGRectMake(10, 20, 1000, 450)];
-    imageV.image = [UIImage imageNamed:@"about_company.png"];
+    
+    UIImageView * imageV = [[UIImageView alloc]initWithFrame:CGRectMake(10, 20, imageW-20, kMainScreenHeight-44-topDistance-40)];
+    imageV.image = [UIImage imageNamed:imageName];
+    
     [_scrolContent addSubview:imageV];
 }
 - (void) loadSHLLabel {

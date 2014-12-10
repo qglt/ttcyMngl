@@ -53,6 +53,7 @@
     [super viewDidLoad];
     getTopDistance()
     getPlayBarHeight()
+    
     [CommonClass backgroundColorWhitUIView:self.mostlyView];
     [self addNavigationView];
     [self createEmptyLabel];
@@ -75,7 +76,7 @@
     
     [self.mostlyView addSubview: [onlineCelebritView addCelebritTypesViewViewTitle:_navigationTitle url:_navigationUrl]];
     _typeModel=[onlineCelebritView getTypeModels];
-    
+    NSLog(@"-----_types:%@\n-----gettypes:%@",_typeModel,[onlineCelebritView getTypeModels]);
 }
 //初始化  UITableView
 -(void)initialize{

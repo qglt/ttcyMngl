@@ -61,7 +61,7 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if([indexPath row] ==_models.count)
     {
-         self.Url= [NSString stringWithFormat:@"/iosSeve.ashx?type=1&&pagesize=%d&&pageCount=%d&&ctype=%d",self.pageSize,self.pageCount+1,_nonceType];
+         self.Url= [NSString stringWithFormat:@"/iosSeve.ashx?type=1&&pagesize=%d&&pageCount=%d&&ctype=%@",self.pageSize,self.pageCount+1,_typeModel[_nonceType]];
         [HUD messageForBuffering];
         CelebrityCell *loadMoreCell=(CelebrityCell *)[tableView cellForRowAtIndexPath:indexPath];
         [loadMoreCell setLoadTitle:@" "];
@@ -80,6 +80,7 @@
 -(void)TypebtnClick:(UIButton *)selButton{
     [self initialize];
   _nonceType=selButton.tag-1;
+#warning -- TMD - 坑货，  这段代码需要重写 －－－－－－－－－－－－－－
       id cel=_typeModel[_nonceType];
     self.Url= [NSString stringWithFormat:@"/iosSeve.ashx?type=1&&pagesize=%d&&pageCount=%d&&ctype=%@",self.pageSize,1,cel];
    

@@ -89,6 +89,7 @@
     
     CGRect frame = celebrityTableView.frame;
     frame.origin.x = 92;
+    frame.size.width = kMainScreenWidth - 92;
     celebrityTableView.frame = frame;
 }
 #pragma mark - infoBar Condition -----------------------------

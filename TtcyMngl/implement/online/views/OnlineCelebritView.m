@@ -30,7 +30,7 @@
 -(id)addCelebritTypesViewViewTitle:(NSString *)viewTitle url:(NSString*)url {
 
     CGRect frame=self.frame;
-     _models=[[NSMutableArray alloc]init];
+     self.models=[NSMutableArray array];
     UILabel *sideLabel=[[UILabel alloc]initWithFrame:CGRectMake(navigationWhile,0, 0.4 , frame.size.height)];
     sideLabel.backgroundColor=[Utils colorWithHexString:@"#04DDFF"];
     [self addSubview:sideLabel];

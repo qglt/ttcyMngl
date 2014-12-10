@@ -84,7 +84,7 @@
         AlbumCell *loadMoreCell=(AlbumCell *)[tableView cellForRowAtIndexPath:indexPath];
         [loadMoreCell setLoadTitle:@" "];
         loadMoreCell.userInteractionEnabled = NO;
-              self.Url=[NSString stringWithFormat:@"/iosSeve.ashx?type=10&&pagesize=%d&&pageCount=%d&&ctype=%d",self.pageSize,self.pageCount+1,_nonceType];
+              self.Url=[NSString stringWithFormat:@"/iosSeve.ashx?type=10&&pagesize=%d&&pageCount=%d&&ctype=%@",self.pageSize,self.pageCount+1,_typeModel[_nonceType]];
         [self performSelectorInBackground:@selector(loadMore) withObject:nil];
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
         return;
@@ -105,16 +105,5 @@
       self.Url=[NSString stringWithFormat:@"/iosSeve.ashx?type=10&&pagesize=%d&&pageCount=%d&&ctype=%@",self.pageSize,1,cel];
     [self loadMore];
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

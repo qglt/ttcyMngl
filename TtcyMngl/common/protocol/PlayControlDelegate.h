@@ -15,7 +15,9 @@
 @optional
 
 - (void)plaBarHeadButtonPressed;
+
 -(void)playQueueChanged:(NSArray *)songArray;
+
 -(void)showBufferingHud:(BOOL)isShow;
 
 -(void)refreshPlayTime:(NSInteger)time andDuration:(NSInteger)duration;
