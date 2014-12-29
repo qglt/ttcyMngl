@@ -149,6 +149,7 @@
 		044BDFAA19FF5BCD000CD285 /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 044BDF9119FF5BCD000CD285 /* libWeChatSDK.a */; };
 		044BDFAB19FF5BCD000CD285 /* libYixinSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 044BDF9519FF5BCD000CD285 /* libYixinSDK.a */; };
 		044BDFAC19FF5BCD000CD285 /* ShareSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 044BDF9819FF5BCD000CD285 /* ShareSDK.framework */; };
+		044F23E01A3A7460005F35D8 /* main_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 044F23DF1A3A7460005F35D8 /* main_icon.png */; };
 		0451ED69195CF53100A01630 /* CollectListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0451ED68195CF53100A01630 /* CollectListViewController.m */; };
 		045FBEA8196FCB3600A6CF20 /* DownLoadInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 045FBEA7196FCB3600A6CF20 /* DownLoadInfoCell.m */; };
 		047BA95F196BCF1A003ECA14 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 047BA95E196BCF1A003ECA14 /* CoreTelephony.framework */; };
@@ -535,6 +536,7 @@
 		044BDF9619FF5BCD000CD285 /* YXApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YXApi.h; sourceTree = "<group>"; };
 		044BDF9719FF5BCD000CD285 /* YXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YXApiObject.h; sourceTree = "<group>"; };
 		044BDF9819FF5BCD000CD285 /* ShareSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ShareSDK.framework; sourceTree = "<group>"; };
+		044F23DF1A3A7460005F35D8 /* main_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = main_icon.png; sourceTree = "<group>"; };
 		0451ED67195CF53100A01630 /* CollectListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollectListViewController.h; sourceTree = "<group>"; };
 		0451ED68195CF53100A01630 /* CollectListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CollectListViewController.m; sourceTree = "<group>"; };
 		045FBEA6196FCB3600A6CF20 /* DownLoadInfoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DownLoadInfoCell.h; sourceTree = "<group>"; };
@@ -1138,6 +1140,7 @@
 		04EE15CA1981072C00B0CA87 /* defaults */ = {
 			isa = PBXGroup;
 			children = (
+				044F23DF1A3A7460005F35D8 /* main_icon.png */,
 				041315C31A14863900A8E4A2 /* IMG_4361.PNG */,
 				041315C41A14863900A8E4A2 /* IMG_4362.PNG */,
 				041315C51A14863900A8E4A2 /* IMG_4363.PNG */,
@@ -1906,6 +1909,7 @@
 				04EE168B1981072D00B0CA87 /* hide_btn_h@2x.png in Resources */,
 				04EE166F1981072D00B0CA87 /* remove_btn_h@2x.png in Resources */,
 				0419AEAD19D64BC600F57B58 /* check_update@2x.png in Resources */,
+				044F23E01A3A7460005F35D8 /* main_icon.png in Resources */,
 				0419ADCA19CC08B500F57B58 /* all_play_h.png in Resources */,
 				04EE16551981072D00B0CA87 /* PlayControlInfo.plist in Resources */,
 				04A8C36D19CAC12D00BAD3E2 /* pageControl_thumb@2x.png in Resources */,

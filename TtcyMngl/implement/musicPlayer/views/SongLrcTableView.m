@@ -81,8 +81,6 @@
     self.LrcTable = [[UITableView alloc]initWithFrame:rect style:UITableViewStylePlain];
     _LrcTable.center = CGPointMake((self.bounds.origin.x+self.bounds.size.width)/2.0f, (self.bounds.size.height)/2.0f +TopBarHeight);
     
-    _LrcTable.scrollEnabled = NO;
-    
     _LrcTable.delegate = self;
     _LrcTable.dataSource = self;
     _LrcTable.showsVerticalScrollIndicator = NO;
@@ -141,11 +139,44 @@
                 }
             }
         }
-        
-        [_LrcTable reloadData];
-        
     }
+    [_LrcTable reloadData];
+}
+- (void)refreshLrcDataWithLrcString:(NSString *)lrcString
+{
+    [_LrcDictionary removeAllObjects];
+    [_timeArray removeAllObjects];
     
+    if ([Utils isEmptyString:lrcString]) {
+        [self showEmptyLabel:YES];
+        
+    }else{
+        NSError * error;
+        
+        NSArray *array = [lrcString componentsSeparatedByString:@"\n"];
+        
+        for (int i = 0; i < [array count]; i++) {
+            
+            NSString *linStr = array[i];
+            NSArray *lineArray = [linStr componentsSeparatedByString:@"]"];
+            
+            if ([lineArray[0] length] > 8) {
+                
+                NSString *str1 = [linStr substringWithRange:NSMakeRange(3, 1)];
+                NSString *str2 = [linStr substringWithRange:NSMakeRange(6, 1)];
+                
+                if ([str1 isEqualToString:@":"] && [str2 isEqualToString:@"."]) {
+                    
+                    NSString *lrcStr = [lineArray objectAtIndex:1];
+                    NSString *timeStr = [[lineArray objectAtIndex:0] substringWithRange:NSMakeRange(1, 5)];//分割区
+                    
+                    [_LrcDictionary setObject:lrcStr forKey:timeStr];
+                    [_timeArray addObject:timeStr];//timeArray的count就是行数
+                }
+            }
+        }
+    }
+    [_LrcTable reloadData];
 }
 
 - (void)myTask {
@@ -230,13 +261,12 @@
         
     }else{
         if (indexPath.row == lrcLineNumber) {
-            cell.fontColor = [UIColor colorWithWhite:1 alpha:1];
+            cell.fontColor = NVC_UNSELECTED_BACKGROUND;
         } else {
-            cell.fontColor = [UIColor colorWithWhite:0 alpha:1];
+            cell.fontColor = [Utils colorWithHexString:@"#22C5DF"];
         }
         [cell setUpCellWithText:_LrcDictionary[_timeArray[indexPath.row]]];
     }
     return cell;
 }
-
 @end

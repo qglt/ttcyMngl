@@ -42,7 +42,7 @@
     _titleLabel.backgroundColor = [UIColor clearColor];
     _titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
     _titleLabel.numberOfLines = 0;
-    _titleLabel.font = [UIFont fontWithName:@"Menksoft Qagan" size:20.0];
+    _titleLabel.font = [UIFont fontWithName:@"Menksoft Qagan" size:22.0];
     _titleLabel.textAlignment = NSTextAlignmentLeft;
     
     [self addSubview:_titleLabel];

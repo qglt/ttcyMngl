@@ -186,9 +186,7 @@ SINGLETON_IMPLEMENT(DownloadListViewController)
             [_urlList setObject:downItem forKey:[downItem.downloadSong.songUrl description]];
         }
     }
-    
     [self.dataTable reloadData];
-    
 }
 
 #pragma mark - UITableView delegate methods - 

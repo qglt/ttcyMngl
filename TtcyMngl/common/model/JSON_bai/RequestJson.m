@@ -18,7 +18,7 @@
         //加载一个NSURL对象
         NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:url]];
         //将请求的url数据放到NSData对象中
-        
+         
         NSData *response = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
        if (response==nil) {
            return nil;

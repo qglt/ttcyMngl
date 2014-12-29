@@ -20,7 +20,7 @@
  *  @param lrcFilePath 歌词文件路径,callback 回lrc文件里的时间列表
  */
 -(void)refreshLrcDataWithFileName:(NSString *)lrcFileName;
-
+- (void)refreshLrcDataWithLrcString:(NSString *)lrcString;
 /**
  *  根据时间更新歌词显示情况
  *

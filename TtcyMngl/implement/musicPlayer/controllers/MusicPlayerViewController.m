@@ -24,6 +24,9 @@
 #import "AccountManager.h"
 #import "AccountInfo.h"
 
+#import "DownloadConstants.h"
+#import "DownloadManager.h"
+
 #define TAG_HIDDE 100
 #define TAG_LIST  101
 
@@ -209,15 +212,18 @@
 -(void)getCurrentLrc
 {
     self.lrcFile = nil;
-    if (![self checkLrcFileInDocuments]) {
-        
-        [self grabLrcInBackground];
-        
+    if (![Utils isEmptyString:_currentSong.lrc_url]) {
+        if (![self checkLrcFileInDocuments]) {
+            
+            [self grabLrcInBackground];
+            
+        }else{
+            [_lrcTableView showEmptyLabel:NO];
+            [self refreshLrcTable];
+        }
     }else{
-        [_lrcTableView showEmptyLabel:NO];
         [self refreshLrcTable];
     }
-    
     if (![_callInitController isKindOfClass:NSClassFromString(@"MainViewController")]) {
         [[PlayBar defultPlayer] Play:_currentSong];
     }
@@ -225,7 +231,7 @@
 -(BOOL )checkLrcFileInDocuments
 {
     NSString *docDir = [Utils applicationDocumentPath];
-    self.currentLrcInlocalPath = [docDir stringByAppendingString:[NSString stringWithFormat:@"/%@.lrc",_currentSong.songName]];
+    self.currentLrcInlocalPath = [docDir stringByAppendingString:[NSString stringWithFormat:@"/%@",[_currentSong.lrc_url lastPathComponent]]];
     
     BOOL check = [[NSFileManager defaultManager] fileExistsAtPath:_currentLrcInlocalPath];
     if (check) {
@@ -237,27 +243,27 @@
 - (void)grabLrcInBackground
 {
     [HUD messageForBuffering];
-    if (_currentSong && !([@"" isEqualToString:_currentSong.lrc_url] || nil == _currentSong.lrc_url || [_currentSong.lrc_url isKindOfClass:[NSNull class]])) {
+    if (![Utils isEmptyString:_currentSong.lrc_url]) {
         NSURL * url = [NSURL URLWithString: _currentSong.lrc_url];
         
-        __unsafe_unretained ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:url];
+        ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:url];
         request.timeOutSeconds = 6;
+        [request setDownloadDestinationPath :_currentLrcInlocalPath];
+        [request setDownloadProgressDelegate:self];
+        
+        __unsafe_unretained MusicPlayerViewController * main = self;
         [request setCompletionBlock:^{
-            
-            NSString *responseString = [request responseString];
-            
-            [responseString writeToFile:_currentLrcInlocalPath atomically:YES encoding:NSUTF8StringEncoding error:nil];
-            
-            [self refreshLrcTable];
-            
+            main.lrcFile = _currentLrcInlocalPath;
+            [main refreshLrcTable];
         }];
         [request setFailedBlock:^{
             
             [HUD clearHudFromApplication];
-            [self refreshLrcTable];
+            [main refreshLrcTable];
             
         }];
         [request startAsynchronous];
+        
     }else{
         [HUD clearHudFromApplication];
         [self refreshLrcTable];
@@ -297,7 +303,7 @@
 }
 -(void)createLrcTableView
 {
-    self.lrcTableView = [[SongLrcTableView alloc]initWithFrame:CGRectOffset(_contentView.bounds, 0, _contentView.frame.size.height) andRowHeight:60.0f];
+    self.lrcTableView = [[SongLrcTableView alloc]initWithFrame:CGRectOffset(_contentView.bounds, 0, _contentView.frame.size.height) andRowHeight:40.0f];
     [self.contentView addSubview:_lrcTableView];
     
 }

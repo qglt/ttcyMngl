@@ -214,7 +214,7 @@
     
     //    NSString *regex = @"[0-9]{11}";
     
-    NSString *regex = @"^((13[0-9])|(147)|(15[^4,\\D])|(18[0,5-9]))\\d{8}$";
+    NSString *regex = @"^((13[0-9])|(147)|(15[^4,\\D])|(18[0,2,5-9]))\\d{8}$";
     
     NSPredicate *pred = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regex];
     
@@ -379,7 +379,14 @@
 }
 +(BOOL)isEmptyString:(id)string
 {
-    if ([string isKindOfClass:[NSNull class]]||string == nil ||[@"" isEqualToString:string]){
+    if ([string isKindOfClass:[NSNull class]]) {
+        return YES;
+    }
+    if (string == nil) {
+        return YES;
+    }
+    NSString *text = [string stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    if (text.length == 0) {
         return YES;
     }
     return NO;

@@ -193,7 +193,7 @@ SINGLETON_IMPLEMENT(UserShareSDK)
 - (void)callTheShareSDKInterfaceWithApp
 {
     contentType = contentApp;
-    NSString *imagePath = [[NSBundle mainBundle] pathForResource:@"online_music_btn02@2x"  ofType:@"png"];
+    NSString *imagePath = [[NSBundle mainBundle] pathForResource:@"main_icon"  ofType:@"png"];
     //构造分享内容
     NSString *contentString = @"快来用蒙文歌曲播放器听蒙语歌曲吧,点击http://www.ttcy.com下载";
     NSString *titleString   = @"天堂草原音乐网";
@@ -262,9 +262,9 @@ SINGLETON_IMPLEMENT(UserShareSDK)
 - (void) sendAppContent
 {
     WXMediaMessage *message = [WXMediaMessage message];
-    message.title = @"TengrTal";
+    message.title = @"TengrTal（天堂草原蒙文音乐播放器）点击可以下载";
     message.description = @"天堂草原蒙文音乐播放器";
-    [message setThumbImage:[UIImage imageNamed:@"online_music_btn02@2x.png"]];
+    [message setThumbImage:[UIImage imageNamed:@"main_icon.png"]];
     
     WXAppExtendObject *ext = [WXAppExtendObject object];
     ext.extInfo = @"天堂草原蒙文音乐播放器";
@@ -290,8 +290,8 @@ SINGLETON_IMPLEMENT(UserShareSDK)
 - (void)sendSongToWechat
 {
     WXMediaMessage *message = [WXMediaMessage message];
-    message.title = @"TengrTal天堂草原音乐蒙语App（www.ttcy.com）";
-    message.description = @"把这首好听的歌分享给大家";;
+    message.title = @"TengrTal";
+    message.description = @"天堂草原蒙文音乐播放器";
     [message setThumbData:[NSData dataWithContentsOfURL:[NSURL URLWithString:_currentSongDict[@"avatarImageUrl"]]]];
     WXMusicObject *ext = [WXMusicObject object];
     ext.musicUrl = [@"http://mobi.ttcy.com/SharePlay.aspx?id=" stringByAppendingString:[_currentSongDict objectForKey:@"songId"]];
