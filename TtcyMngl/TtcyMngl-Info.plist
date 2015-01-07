@@ -45,6 +45,9 @@
 	<true/>
 	<key>UIAppFonts</key>
 	<array>
+		<string>mnglwritingaat.ttf</string>
+		<string>mnglwhiteaat.ttf</string>
+		<string>mngltitleaat.ttf</string>
 		<string>OyutamongbaitiM.ttf</string>
 		<string>mnglartaat.ttf</string>
 	</array>
