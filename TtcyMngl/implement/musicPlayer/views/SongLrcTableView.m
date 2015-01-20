@@ -73,26 +73,23 @@
 }
 -(void)createTableView
 {
-    
-    CGFloat width = self.bounds.size.height;
-    CGFloat height = self.bounds.size.width;
-    CGRect rect = CGRectMake(0, 0, width-topDistance+TopBarHeight, height-10);
-    
-    self.LrcTable = [[UITableView alloc]initWithFrame:rect style:UITableViewStylePlain];
-    _LrcTable.center = CGPointMake((self.bounds.origin.x+self.bounds.size.width)/2.0f, (self.bounds.size.height)/2.0f +TopBarHeight);
+    self.LrcTable = [[UITableView alloc]initWithFrame:CGRectZero style:UITableViewStylePlain];
+     _LrcTable.transform = CGAffineTransformMakeRotation(-M_PI_2);
+    CGRect frame = self.bounds;
+    frame.origin.y += 10;
+    frame.size.height -= 10;
+    frame.origin.x += 10;
+    frame.size.width -= 10;
+    _LrcTable.frame = frame;
     
     _LrcTable.delegate = self;
     _LrcTable.dataSource = self;
     _LrcTable.showsVerticalScrollIndicator = NO;
-    
+    _LrcTable.scrollEnabled = NO;
     _LrcTable.rowHeight = self.rowHeight;
     _LrcTable.separatorStyle = UITableViewCellSelectionStyleNone;
-    [self addSubview:_LrcTable];
-    
     _LrcTable.backgroundColor = [UIColor clearColor];
-    CGAffineTransform rotate = CGAffineTransformMakeRotation(-M_PI_2);
-    [_LrcTable setTransform:rotate];
-    
+    [self addSubview:_LrcTable];
 }
 -(void)showEmptyLabel:(BOOL)show
 {
@@ -262,7 +259,9 @@
     }else{
         if (indexPath.row == lrcLineNumber) {
             cell.fontColor = NVC_UNSELECTED_BACKGROUND;
+            cell.fontSize = 20.f;
         } else {
+            cell.fontSize = 18.f;
             cell.fontColor = [Utils colorWithHexString:@"#22C5DF"];
         }
         [cell setUpCellWithText:_LrcDictionary[_timeArray[indexPath.row]]];

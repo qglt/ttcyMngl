@@ -11,6 +11,7 @@
 @interface MnglSongCell : UITableViewCell
 
 @property(nonatomic,strong)UIColor *fontColor;
+@property(nonatomic)CGFloat fontSize;
 
 -(void)setUpCellWithText:(NSString *)text;
 

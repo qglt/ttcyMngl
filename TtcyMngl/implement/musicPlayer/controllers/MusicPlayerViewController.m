@@ -303,9 +303,8 @@
 }
 -(void)createLrcTableView
 {
-    self.lrcTableView = [[SongLrcTableView alloc]initWithFrame:CGRectOffset(_contentView.bounds, 0, _contentView.frame.size.height) andRowHeight:40.0f];
+    self.lrcTableView = [[SongLrcTableView alloc]initWithFrame:CGRectOffset(_contentView.bounds, 0, _contentView.frame.size.height) andRowHeight:30.0f];
     [self.contentView addSubview:_lrcTableView];
-    
 }
 
 -(void)createInfoView
